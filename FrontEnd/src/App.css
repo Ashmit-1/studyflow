@@ -1,0 +1,78 @@
+.div-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form-btn {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    border: 2px solid black;
+}
+
+.form-btn p {
+    font-size: large;
+    text-align: center;
+    background: linear-gradient(135deg, cyan, purple, blue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.form-btn input {
+    padding: 6px;
+    border-radius: 8px;
+    border: 1px solid black;
+}
+
+.form-btn .page-set {
+    position: relative;
+}
+
+.form-btn .page-set label {
+    position: absolute;
+    left: 9px;
+    top: 6px;
+    background: white;
+    padding: 0 5px;
+    color: gray;
+    transition: all 0.25s ease;
+    pointer-events: none;
+
+}
+
+.form-btn .page-set input:focus+label,
+.form-btn .page-set input:valid+label {
+    top: -9px;
+    font-size: 13px;
+    color: blue;
+}
+
+.form-btn:focus {
+    outline: none;
+    color: blue;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.form-btn button {
+    height: 30px;
+    width: 100px;
+    align-self: center;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.form-btn button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.form-btn button:active {
+    transform: scale(0.97);
+}
