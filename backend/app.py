@@ -6,8 +6,10 @@ from src.deps import get_db
 from src.models import User
 from src.schemas import UserCreate, UserOut
 from bcrypt import hashpw, gensalt
+from src.routes.login import router as login_router
 
 app = FastAPI()
+app.include_router(login_router)
 
 app.add_middleware(
     CORSMiddleware,
