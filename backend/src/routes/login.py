@@ -1,13 +1,15 @@
 from fastapi import APIRouter, Depends, HTTPException
 from src.deps import get_db
+from sqlalchemy.orm import Session
+
 from src.models import User
 from bcrypt import checkpw
-from src.schemas import UserCreate, UserOut
+from src.schemas import UserLogin,LoginOut
 
 router = APIRouter()
 
-@router.post("/login", response_model=UserOut)
-def login_user(user: UserCreate, db=Depends(get_db)):
+@router.post("/login", response_model=LoginOut)
+def login_user(user: UserLogin, db: Session = Depends(get_db)):
     db_user = db.query(User).filter(User.username == user.username).first()
     if not db_user:
         raise HTTPException(status_code=404, detail="User not found")
