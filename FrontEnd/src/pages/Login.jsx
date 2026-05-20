@@ -30,7 +30,7 @@ export default function Login() {
         <>
             <div className="div-btn">
                 <div className="login-form">
-                    <h2>Login</h2>
+                    <p>Login</p>
                     <input
                         type="text"
                         name="username"

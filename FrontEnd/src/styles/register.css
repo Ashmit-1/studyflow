@@ -5,14 +5,14 @@
     font-family: sans-serif;
 }
 
-body {
+.div-btn {
     overflow: hidden;
     background: #050816;
 }
 
 /* Animated glowing blobs */
-body::before,
-body::after {
+.div-btn::before,
+.div-btn::after {
     content: '';
     position: absolute;
     width: 500px;
@@ -22,13 +22,13 @@ body::after {
     animation: move 10s infinite alternate;
 }
 
-body::before {
+.div-btn::before {
     background: #3b82f6;
     top: -150px;
     left: -100px;
 }
 
-body::after {
+.div-btn::after {
     background: #9333ea;
     bottom: -150px;
     right: -100px;
