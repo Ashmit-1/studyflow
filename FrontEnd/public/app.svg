@@ -1,0 +1,39 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <linearGradient id="sf_holo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4"/>
+      <stop offset="40%" stop-color="#3B82F6"/>
+      <stop offset="75%" stop-color="#EC4899"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- DARK BACKGROUND (favicon friendly) -->
+  <rect width="256" height="256" rx="48" fill="#0f172a"/>
+
+  <!-- BOOK OUTLINE (bold for favicon clarity) -->
+  <path d="M72 76 
+           Q72 58 100 58 
+           L128 72 
+           L156 58 
+           Q184 58 184 76 
+           L184 168 
+           Q184 186 156 186 
+           L128 172 
+           L100 186 
+           Q72 186 72 168 Z"
+        stroke="url(#sf_holo)" 
+        stroke-width="10" 
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round" />
+
+  <!-- NEURAL CURVES (simplified nodes + curves) -->
+  <path d="M94 112 Q128 88 162 112"
+        stroke="url(#sf_holo)" stroke-width="10" fill="none" stroke-linecap="round"/>
+
+  <path d="M94 148 Q128 172 162 148"
+        stroke="url(#sf_holo)" stroke-width="10" fill="none" stroke-linecap="round"/>
+
+</svg>
