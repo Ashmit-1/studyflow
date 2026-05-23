@@ -25,3 +25,10 @@ class LoginOut(BaseModel):
 
     class Config:
         from_attributes=True
+
+class StudentOut(BaseModel):
+    id: int
+    username: str
+
+    class Config:
+        from_attributes= True
