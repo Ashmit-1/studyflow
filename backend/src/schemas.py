@@ -22,9 +22,8 @@ class UserLogin(BaseModel):
 class LoginOut(BaseModel):
     id:int
     username: str
-
-    class Config:
-        from_attributes=True
+    access_token: str
+    token_type: str
 
 class StudentOut(BaseModel):
     id: int

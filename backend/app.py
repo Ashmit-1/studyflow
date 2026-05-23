@@ -7,9 +7,11 @@ from src.models import User
 from src.schemas import UserCreate, UserOut
 from bcrypt import hashpw, gensalt
 from src.routes.login import router as login_router
+from src.routes.studentlog import route as student_login
 
 app = FastAPI()
 app.include_router(login_router)
+app.include_router(student_login)
 
 app.add_middleware(
     CORSMiddleware,

@@ -1,7 +1,10 @@
 import { useState } from "react";
 import "../styles/login.css"
+import { useNavigate } from "react-router-dom";
+
 
 export default function Login() {
+    const navigate = useNavigate();
     const [user, setName] = useState({
         username: "",
         password: ""
@@ -12,20 +15,34 @@ export default function Login() {
             [e.target.name]: e.target.value,
         });
     };
-    const submit = async () => {
-        const respone = await fetch("http://127.0.0.1:8000/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(user),
-        });
-        if (respone.ok) {
-            alert("Login successful");
-        } else {
-            alert("Login failed");
+    const submit = async (e) => {
+        e.preventDefault();
+
+        const formData = new URLSearchParams();
+        formData.append("username", user.username);
+        formData.append("password", user.password);
+
+        try {
+            const response = await fetch("http://127.0.0.1:8000/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: formData,
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                localStorage.setItem("token", data.access_token);
+                navigate(`/student/${data.id}`);
+            } else {
+                alert("Invalid username or password");
+            }
+        } catch (error) {
+            console.error("Error:", error);
         }
-    }
+    };
+
     return (
         <>
             <div className="div-btn">
