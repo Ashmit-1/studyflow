@@ -1,5 +1,6 @@
-import { useState } from "react"
-import "../styles/register.css"
+import { useState } from "react";
+import "../styles/register.css";
+import Toast from "../components/Toast";
 
 function Register() {
     const [user, setUser] = useState({
@@ -7,6 +8,7 @@ function Register() {
         email: "",
         password: "",
     });
+    const [error, setError] = useState("")
     const handleChange = (e) => {
         setUser({
             ...user,
@@ -23,7 +25,7 @@ function Register() {
             body: JSON.stringify(user),
         });
         if (!response.ok) {
-            alert("something went wrong");
+            setError("something went wrong");
         }
     };
     return (
@@ -46,6 +48,7 @@ function Register() {
                     <button onClick={submit}>Submit</button>
                 </div>
             </div>
+            {error && <Toast message={error} onClose={() => setError("")} />}
         </>
     );
 }
