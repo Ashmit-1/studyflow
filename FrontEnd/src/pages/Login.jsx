@@ -9,6 +9,7 @@ export default function Login() {
         username: "",
         password: ""
     });
+    const [error, setError] = useState("");
     const HandleReg = (e) => {
         setName({
             ...user,
@@ -36,7 +37,7 @@ export default function Login() {
                 localStorage.setItem("token", data.access_token);
                 navigate(`/student/${data.id}`);
             } else {
-                alert("Invalid username or password");
+                setError("Invalid username or password");
             }
         } catch (error) {
             console.error("Error:", error);
@@ -66,7 +67,19 @@ export default function Login() {
                     />
                     <button onClick={submit} className="login-btn">Login</button>
                 </div>
+
             </div>
+            {error && (
+                <div className="fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg">
+                    {error}
+                    <button
+                        onClick={() => setError("")}
+                        className="ml-2 text-sm underline"
+                    >
+                        Close
+                    </button>
+                </div>
+            )}
         </>
     );
 }

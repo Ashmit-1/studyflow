@@ -5,7 +5,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 
 from src.models import User
 from bcrypt import checkpw
-from src.schemas import UserLogin,LoginOut
+from src.schemas import LoginOut
 from src.auth_utils import create_access_token
 
 router = APIRouter()
