@@ -34,7 +34,9 @@ export default function Login() {
 
             if (response.ok) {
                 const data = await response.json();
+                console.log(data);
                 localStorage.setItem("token", data.access_token);
+                localStorage.setItem("username", data.username);
                 navigate(`/student/${data.id}`);
             } else {
                 setError("Invalid username or password");
