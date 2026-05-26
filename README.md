@@ -37,7 +37,19 @@ app/
     └── src/
         ├── main.jsx           # React entry point
         ├── App.jsx            # Main component
-        ├── App.css            # Application styles
+        ├── index.css          # Application styles
+        ├── components/
+        │   └── Toast.jsx      # Toast notification component
+        ├── pages/
+        │   ├── Home.jsx       # Landing page
+        │   ├── Login.jsx      # User login page
+        │   ├── Register.jsx   # User registration page
+        │   └── dashboard/
+        │       └── Student.jsx # Student dashboard view
+        ├── styles/            # Component-specific styles
+        │   ├── home.css
+        │   ├── login.css
+        │   └── register.css
         └── assets/            # Static assets
 ```
 
@@ -165,9 +177,9 @@ app/
 - **GET** `/`
   - Returns: `{"hello": "world"}`
 
-### User Management
+### Authentication & User Management
 
-#### Create User
+#### User Registration
 - **POST** `/users`
 - **Request Body:**
   ```json
@@ -190,18 +202,50 @@ app/
   - `400 Bad Request` - Username or email already exists
   - `400 Bad Request` - Invalid input
 
-#### Get User
-- **GET** `/users/{user_id}`
+#### User Login
+- **POST** `/login`
+- **Request Body:** (OAuth2 form data)
+  ```json
+  {
+    "username": "string",
+    "password": "string"
+  }
+  ```
 - **Response:**
   ```json
   {
     "id": 1,
     "username": "string",
-    "email": "user@example.com"
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGc...",
+    "token_type": "bearer"
   }
   ```
 - **Status Codes:**
-  - `200 OK` - User found
+  - `200 OK` - Login successful
+  - `404 Not Found` - User not found
+  - `401 Unauthorized` - Invalid password
+
+#### Get Student Dashboard
+- **GET** `/student/{user_id}`
+- **Headers:** `Authorization: Bearer <access_token>`
+- **Response:**
+  ```json
+  {
+    "id": 1,
+    "username": "string",
+    "email": "user@example.com",
+    "full_name": "string",
+    "created_at": "2024-01-01T00:00:00",
+    "subjects": [...],
+    "study_plans": [...],
+    "progress": [...],
+    "recommendations": [...]
+  }
+  ```
+- **Status Codes:**
+  - `200 OK` - Data retrieved successfully
+  - `401 Unauthorized` - Invalid or missing token
+  - `403 Forbidden` - Not authorized to view this user's data
   - `404 Not Found` - User not found
 
 ---
@@ -229,22 +273,46 @@ app/
 ## 🔐 Security Features
 
 - **Password Hashing**: Uses bcrypt with salt rounds for secure password storage
+- **JWT Authentication**: Token-based authentication for secure API access
+- **OAuth2 Integration**: OAuth2PasswordBearer for protected endpoints
 - **CORS Middleware**: Configured to handle cross-origin requests
 - **Input Validation**: Pydantic models validate all incoming requests
 - **Unique Constraints**: Username and email uniqueness enforced at database level
+- **Authorization**: User-specific data access control with token verification
 
 ---
 
 ## 📝 Features
 
+### Completed ✅
 - ✅ User registration with secure password hashing
-- ✅ User profile management
-- ✅ Subject creation and management
-- ✅ Topic organization with priority levels
-- ✅ Study time estimation
-- ✅ Progress tracking
-- ✅ AI-powered study recommendations
+- ✅ User login with JWT token generation
+- ✅ JWT token verification and authorization
+- ✅ Student dashboard endpoint with protected access
+- ✅ Database models for subjects, topics, study plans, and progress
+- ✅ Landing page with feature highlights (StudyFlow branding)
+- ✅ User registration form with validation
+- ✅ User login form with error handling
+- ✅ Toast notification component
+- ✅ Responsive CSS styling
 - ✅ CORS enabled for frontend integration
+
+### In Development 🔄
+- 🔄 Subject creation and management endpoints
+- 🔄 Topic CRUD operations
+- 🔄 Study plan management
+- 🔄 Progress tracking endpoints
+
+### Future Enhancements 🚀
+- 🚀 Subject management UI pages
+- 🚀 Topic priority visualization
+- 🚀 Study plan scheduler
+- 🚀 Progress dashboard with statistics
+- 🚀 AI-powered study recommendations
+- 🚀 Token refresh endpoint
+- 🚀 User logout functionality
+- 🚀 Email verification
+- 🚀 Password reset functionality
 
 ---
 
@@ -258,7 +326,7 @@ The API returns appropriate HTTP status codes:
 
 ---
 
-## 📚 Usage Example
+## 📚 Usage Examples
 
 ### Register a New User
 ```bash
@@ -271,24 +339,24 @@ curl -X POST "http://localhost:8000/users" \
   }'
 ```
 
-### Get User Details
+### User Login
 ```bash
-curl -X GET "http://localhost:8000/users/1"
+curl -X POST "http://localhost:8000/login" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "username=john_doe&password=secure_password123"
 ```
 
----
+### Access Student Dashboard
+```bash
+curl -X GET "http://localhost:8000/student/1" \
+  -H "Authorization: Bearer <access_token>"
+```
 
-## 🚀 Future Enhancements
-
-- [ ] Authentication endpoints (login, logout, token refresh)
-- [ ] Additional subject management endpoints
-- [ ] Study topic CRUD operations
-- [ ] Progress tracking endpoints
-- [ ] AI recommendation engine
-- [ ] User dashboard with statistics
-- [ ] Mobile-responsive frontend improvements
-- [ ] Test coverage
-- [ ] API documentation with Swagger UI
+### Frontend Usage
+1. Navigate to `http://localhost:5173`
+2. Click "Get Started" or "Register" to create a new account
+3. Login with your credentials
+4. Access your student dashboard
 
 ---
 
@@ -304,4 +372,4 @@ This project is open source and available under the MIT License.
 
 ---
 
-**Last Updated**: May 2026
+**Last Updated**: 26-May-2026
