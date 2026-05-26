@@ -34,7 +34,7 @@ export default function Login() {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
+                console.log(data); // Log for debugging 😁
                 localStorage.setItem("token", data.access_token);
                 localStorage.setItem("username", data.username);
                 navigate(`/student/${data.id}`);
