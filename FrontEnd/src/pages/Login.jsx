@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../styles/login.css"
 import { useNavigate } from "react-router-dom";
+import Toast from "../components/Toast";
 
 
 export default function Login() {
@@ -40,6 +41,7 @@ export default function Login() {
                 navigate(`/student/${data.id}`);
             } else {
                 setError("Invalid username or password");
+                setTimeout(() => setError(""), 3000); // Clear error after 3 seconds
             }
         } catch (error) {
             console.error("Error:", error);
@@ -71,17 +73,7 @@ export default function Login() {
                 </div>
 
             </div>
-            {error && (
-                <div className="fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg">
-                    {error}
-                    <button
-                        onClick={() => setError("")}
-                        className="ml-2 text-sm underline"
-                    >
-                        Close
-                    </button>
-                </div>
-            )}
+            {error && <Toast message={error} onClose={() => setError("")} />}
         </>
     );
 }

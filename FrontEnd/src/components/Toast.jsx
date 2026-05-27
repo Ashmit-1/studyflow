@@ -1,9 +1,9 @@
-// Toast.js
+import "../styles/toast.css";
 export default function Toast({ message, onClose }) {
     if (!message) return null;
 
     return (
-        <div className="fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg flex items-center">
+        <div className="toast">
             <span>{message}</span>
             <button
                 onClick={onClose}
