@@ -282,6 +282,14 @@ app/
 
 ---
 
+## 📸 Preview
+
+![Home page](screenshots/Home_screenshot.png)
+
+![Login page](screenshots/Login_screenshot.png)
+
+---
+
 ## 📝 Features
 
 ### Completed ✅

@@ -41,10 +41,9 @@ export default function Login() {
                 navigate(`/student/${data.id}`);
             } else {
                 setError("Invalid username or password");
-                setTimeout(() => setError(""), 3000); // Clear error after 3 seconds
+                setTimeout(() => setError(""), 3000); // Clear error after 3 seconds 😁 
             }
         } catch (error) {
-            console.error("Error:", error);
         }
     };
 
