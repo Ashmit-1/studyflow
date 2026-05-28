@@ -37,6 +37,7 @@ export default function Login() {
                 const data = await response.json();
                 console.log(data); // Log for debugging 😁
                 localStorage.setItem("token", data.access_token);
+                localStorage.setItem("id", data.id);
                 localStorage.setItem("username", data.username);
                 navigate(`/student/${data.id}`);
             } else {
