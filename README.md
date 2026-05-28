@@ -39,7 +39,7 @@ app/
         ├── App.jsx            # Main component
         ├── index.css          # Application styles
         ├── components/
-        │   ├──student_nav.jsx  # Navigation bar for student page
+        │   ├── student_nav.jsx  # Navigation bar for student page
         │   └── Toast.jsx      # Toast notification component
         ├── pages/
         │   ├── Home.jsx       # Landing page
