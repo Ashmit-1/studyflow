@@ -29,7 +29,7 @@ app/
 │       ├── models.py          # SQLAlchemy models
 │       └── schemas.py         # Pydantic request/response schemas
 │
-└── FrontEnd/                   # React frontend application
+└── frontEnd/                   # React frontend application
     ├── package.json           # NPM dependencies
     ├── vite.config.js         # Vite configuration
     ├── eslint.config.js       # ESLint configuration
@@ -39,6 +39,7 @@ app/
         ├── App.jsx            # Main component
         ├── index.css          # Application styles
         ├── components/
+        │   ├──student_nav.jsx  # Navigation bar for student page
         │   └── Toast.jsx      # Toast notification component
         ├── pages/
         │   ├── Home.jsx       # Landing page
@@ -49,7 +50,8 @@ app/
         ├── styles/            # Component-specific styles
         │   ├── home.css
         │   ├── login.css
-        │   └── register.css
+        │   ├── register.css
+        │   └── student_nav.css
         └── assets/            # Static assets
 ```
 
@@ -380,4 +382,4 @@ This project is open source and available under the MIT License.
 
 ---
 
-**Last Updated**: 26-May-2026
+**Last Updated**: 28-May-2026
