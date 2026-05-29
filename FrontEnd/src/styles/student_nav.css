@@ -8,6 +8,16 @@
     background-image: linear-gradient(120deg, #00022c, #021fa4);
 }
 
+.navbar-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-right: auto;
+    background-image: linear-gradient(135deg, blue, pink);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
 .nav-list {
     display: flex;
     flex-direction: row;

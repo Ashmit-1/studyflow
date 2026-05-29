@@ -10,10 +10,9 @@ export default function Student() {
 
     return (
         <>
-            <StudentNav />
+            <StudentNav username={name} />
             <h1>Student Dashboard</h1>
             <p>Student ID: {id}</p>
-            <p>Student Name: {name}</p>
         </>
     );
 }
