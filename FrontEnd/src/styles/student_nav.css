@@ -1,11 +1,12 @@
 .navbar {
     background-color: #333;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 40px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     background-image: linear-gradient(120deg, #00022c, #021fa4);
+    position: sticky;
 }
 
 .navbar-title {

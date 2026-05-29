@@ -4,6 +4,15 @@ import "../styles/home.css";
 export default function Home() {
   return (
     <div className="home-page">
+      <nav className="home-nav">
+        <div className="nav-brand">StudyFlow</div>
+        <div className="nav-links">
+          <Link to="/">Home</Link>
+          <Link to="/login">Login</Link>
+          <Link to="/register">Register</Link>
+        </div>
+      </nav>
+
       <header className="hero-section">
         <div className="hero-content">
           <p className="eyebrow">StudyFlow</p>
@@ -35,15 +44,6 @@ export default function Home() {
           </div>
         </div>
       </header>
-
-      <nav className="home-nav">
-        <div className="nav-brand">StudyFlow</div>
-        <div className="nav-links">
-          <Link to="/">Home</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
-        </div>
-      </nav>
 
       <section className="feature-grid">
         <article>
