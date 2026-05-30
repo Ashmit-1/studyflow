@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../styles/register.css";
+import styles from "../styles/register.module.css";
 import Toast from "../components/Toast";
 
 function Register() {
@@ -30,18 +30,18 @@ function Register() {
     };
     return (
         <>
-            <div className="div-btn">
-                <div className="form-btn">
+            <div className={styles["div-btn"]}>
+                <div className={styles["form-btn"]}>
                     <p>Register</p>
-                    <div className="page-set">
+                    <div className={styles["page-set"]}>
                         <input type="text" name="username" value={user.username} placeholder=" " onChange={handleChange} required />
                         <label>Username</label>
                     </div>
-                    <div className="page-set">
+                    <div className={styles["page-set"]}>
                         <input type="email" name="email" value={user.email} placeholder=" " onChange={handleChange} required />
                         <label>Email</label>
                     </div>
-                    <div className="page-set">
+                    <div className={styles["page-set"]}>
                         <input type="password" name="password" value={user.password} placeholder=" " onChange={handleChange} required />
                         <label>Password</label>
                     </div>
