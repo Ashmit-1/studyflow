@@ -86,7 +86,7 @@ p {
 }
 
 .login-btn:hover::before {
-    left: 145px;
+    left: 150px;
 }
 
 @keyframes shine {

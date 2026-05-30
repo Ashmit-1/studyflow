@@ -70,11 +70,11 @@
     background: linear-gradient(135deg, cyan, #8b5cf6, #3b82f6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
 
-    /* Input wrapper */
-    .page-set {
-        position: relative;
-    }
+/* Input wrapper */
+.page-set {
+    position: relative;
 }
 
 /* Inputs */
