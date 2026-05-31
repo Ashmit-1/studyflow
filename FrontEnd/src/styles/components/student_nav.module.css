@@ -1,5 +1,7 @@
 .navbar {
     background: linear-gradient(120deg, #00022c, #021fa4);
+    width: 85%;
+    margin-left: auto;
     color: white;
     padding: 10px 40px;
     display: flex;
