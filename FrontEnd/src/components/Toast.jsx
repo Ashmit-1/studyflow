@@ -1,4 +1,4 @@
-import styles from "../styles/toast.module.css";
+import styles from "../styles/components/toast.module.css";
 export default function Toast({ message, onClose }) {
     if (!message) return null;
 

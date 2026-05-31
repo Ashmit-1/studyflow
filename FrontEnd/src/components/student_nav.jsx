@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styles from "../styles/student_nav.module.css";
+import styles from "../styles/components/student_nav.module.css";
 
 export default function StudentNav({ username = "Student" }) {
     return (

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "../styles/register.module.css";
+import styles from "../styles/pages/register.module.css";
 import Toast from "../components/Toast";
 
 function Register() {

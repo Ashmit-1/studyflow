@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "../styles/login.module.css";
+import styles from "../styles/pages/login.module.css";
 import { useNavigate } from "react-router-dom";
 import Toast from "../components/Toast";
 

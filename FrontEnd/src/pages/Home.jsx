@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styles from "../styles/home.module.css";
+import styles from "../styles/pages/home.module.css";
 
 export default function Home() {
   return (

@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import StudentNav from "../../components/student_nav";
-import Sidebar from "../../components/sidebar";
+import Sidebar from "../../components/Sidebar";
+import style from "../../styles/pages/studentDash.module.css";
 
 export default function Student() {
     const id = localStorage.getItem("id");
@@ -10,11 +11,11 @@ export default function Student() {
     const navigate = useNavigate();
 
     return (
-        <>
-            <StudentNav username={name} />
+        <div className={style["studentDash"]}>
+            < StudentNav username={name} />
             <Sidebar />
             <h1>Student Dashboard</h1>
             <p>Student ID: {id}</p>
-        </>
+        </div>
     );
 }
