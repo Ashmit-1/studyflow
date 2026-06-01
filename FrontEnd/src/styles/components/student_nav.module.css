@@ -1,5 +1,6 @@
 .navbar {
-    background: linear-gradient(120deg, #00022c, #021fa4);
+    background: linear-gradient(120deg, #00022c9e, #0220a4a2);
+    backdrop-filter: blur(20px) saturate(180%);
     width: 85%;
     margin-left: auto;
     color: white;

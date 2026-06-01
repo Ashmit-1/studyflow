@@ -9,12 +9,22 @@
     box-sizing: border-box;
 }
 
-body {
+.homePage {
     margin: 0;
     min-height: 100vh;
     background: radial-gradient(circle at top, rgba(96, 165, 250, 0.12), transparent 30%),
         radial-gradient(circle at bottom right, rgba(125, 211, 252, 0.08), transparent 25%),
         #06070d;
+}
+
+.homePage p {
+    color: #ffffff;
+    font-size: 24px;
+    font-family: sans-serif;
+    text-align: center;
+    background-image: linear-gradient(135deg, #2563eb, #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .home-page {

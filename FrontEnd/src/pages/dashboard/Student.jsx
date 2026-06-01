@@ -11,11 +11,14 @@ export default function Student() {
     const navigate = useNavigate();
 
     return (
-        <div className={style["studentDash"]}>
+        <>
             < StudentNav username={name} />
             <Sidebar />
-            <h1>Student Dashboard</h1>
-            <p>Student ID: {id}</p>
-        </div>
+            <div className={style["studentDash"]}>
+                <h1>Student Dashboard</h1>
+                <p>Student ID: {id}</p>
+                <p>Hello, {name}!</p>
+            </div>
+        </>
     );
 }

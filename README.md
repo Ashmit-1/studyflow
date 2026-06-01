@@ -39,7 +39,8 @@ app/
         ├── App.jsx            # Main component
         ├── index.css          # Application styles
         ├── components/
-        │   ├── student_nav.jsx  # Navigation bar for student page
+        │   ├── Sidebar.jsx    # Sidebar for student page 
+        │   ├── student_nav.jsx # Navigation bar for student page
         │   └── Toast.jsx      # Toast notification component
         ├── pages/
         │   ├── Home.jsx       # Landing page
@@ -401,4 +402,5 @@ This project is open source and available under the MIT License.
 
 ---
 
-**Last Updated**: 01-june-2026
+**Last Updated**: 01 June 2026
+---

@@ -52,7 +52,7 @@ export default function Login() {
         <>
             <div className={styles["div-btn"]}>
                 <div className={styles["login-form"]}>
-                    <p>Login</p>
+                    <p className={styles["login-title"]}>Login</p>
                     <input
                         type="text"
                         name="username"

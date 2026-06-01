@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-p {
+.login-title {
     color: #ffffff;
     font-size: 24px;
     font-family: sans-serif;
