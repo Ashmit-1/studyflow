@@ -398,7 +398,7 @@ For issues or questions, please refer to the individual README files in the `bac
 
 ## 📄 License
 
-This project is open source and available under the MIT License.
+StudyFlow is an open-source project licensed under the MIT License, welcoming contributions from developers around the world.
 
 ---
 
