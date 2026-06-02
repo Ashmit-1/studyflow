@@ -11,6 +11,7 @@ __pycache__/
 venv/
 env/
 *.sql
+backend/studyflow_env/
 
 # FastAPI / logs
 *.log
