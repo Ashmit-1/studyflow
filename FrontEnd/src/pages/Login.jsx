@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../styles/login.css"
+import styles from "../styles/pages/login.module.css";
 import { useNavigate } from "react-router-dom";
 import Toast from "../components/Toast";
 
@@ -50,16 +50,16 @@ export default function Login() {
 
     return (
         <>
-            <div className="div-btn">
-                <div className="login-form">
-                    <p>Login</p>
+            <div className={styles["div-btn"]}>
+                <div className={styles["login-form"]}>
+                    <p className={styles["login-title"]}>Login</p>
                     <input
                         type="text"
                         name="username"
                         placeholder="Username"
                         value={user.username}
                         onChange={HandleReg}
-                        className="login-input"
+                        className={styles["login-input"]}
                     />
                     <input
                         type="password"
@@ -67,9 +67,9 @@ export default function Login() {
                         placeholder="Password"
                         value={user.password}
                         onChange={HandleReg}
-                        className="login-input"
+                        className={styles["login-input"]}
                     />
-                    <button onClick={submit} className="login-btn">Login</button>
+                    <button onClick={submit} className={styles["login-btn"]}>Login</button>
                 </div>
 
             </div>

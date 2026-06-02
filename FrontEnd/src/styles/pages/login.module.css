@@ -4,8 +4,8 @@
     box-sizing: border-box;
 }
 
-p {
-    color: black;
+.login-title {
+    color: #ffffff;
     font-size: 24px;
     font-family: sans-serif;
     text-align: center;
@@ -19,52 +19,53 @@ p {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: black;
+    background-color: #050816;
 }
 
 .login-form {
     display: flex;
     flex-direction: column;
-    background: none;
-    border: 2px solid black;
+    gap: 15px;
     padding: 40px;
     border-radius: 20px;
-    gap: 15px;
     background: rgba(255, 255, 255, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
-        inset 0 0 10px rgba(255, 255, 255, 0.5);
+        inset 0 0 10px rgba(255, 255, 255, 0.15);
 }
 
 .login-input {
-    border: 1px solid rgb(27, 11, 126);
+    width: 100%;
+    padding: 12px 14px;
     border-radius: 10px;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #f8fafc;
 }
 
 .login-input:focus {
     outline: none;
-    border-color: rgb(0, 0, 255);
-    box-shadow: 0 0 15px rgba(32, 0, 243, 0.715);
+    border-color: #3b82f6;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
 }
 
 .login-btn {
-    background-color: blue;
+    background-color: #2563eb;
     position: relative;
     overflow: hidden;
     border-radius: 20px;
     width: 145px;
     align-self: center;
-    padding: 5px;
+    padding: 12px 0;
     cursor: pointer;
     color: #ffffff;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 255, 0.6);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.6);
 }
 
 .login-btn:hover {
-    background-color: #0000ff;
+    background-color: #1d4ed8;
     transform: scale(1.05);
 }
 
@@ -77,16 +78,15 @@ p {
     position: absolute;
     top: 0;
     left: -120px;
-    overflow: hidden;
     width: 50%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.238);
+    background-color: rgba(255, 255, 255, 0.24);
     transform: skewX(-30deg);
-    transition: all 0.5s ease;
+    transition: left 0.5s ease;
 }
 
 .login-btn:hover::before {
-    animation: shine 0.5s forwards;
+    left: 150px;
 }
 
 @keyframes shine {

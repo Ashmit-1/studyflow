@@ -1,4 +1,4 @@
-# Study Planning Assistant
+﻿# Study Planning Assistant
 
 A full-stack application that helps users manage their study plans, track subjects, and organize study topics with AI-powered recommendations.
 
@@ -39,7 +39,8 @@ app/
         ├── App.jsx            # Main component
         ├── index.css          # Application styles
         ├── components/
-        │   ├── student_nav.jsx  # Navigation bar for student page
+        │   ├── Sidebar.jsx    # Sidebar for student page 
+        │   ├── student_nav.jsx # Navigation bar for student page
         │   └── Toast.jsx      # Toast notification component
         ├── pages/
         │   ├── Home.jsx       # Landing page
@@ -48,11 +49,30 @@ app/
         │   └── dashboard/
         │       └── Student.jsx # Student dashboard view
         ├── styles/            # Component-specific styles
-        │   ├── home.css
-        │   ├── login.css
-        │   ├── register.css
-        │   └── student_nav.css
+        │   ├── components/
+        │   │   ├── toast.module.css
+        │   │   ├── sidebar.module.css
+        │   │   └── student_nav.module.css
+        │   └── pages/
+        │       ├── home.module.css
+        │       ├── login.module.css
+        │       ├── register.module.css
+        │       └── studentDash.module.css          
+        │
+        │  
         └── assets/            # Static assets
+```
+
+---
+
+## 🧱 Architecture diagram
+
+```
+Browser (React) -> FastAPI backend -> MySQL database
+    |                 |
+    |-- JWT token --> |-- SQLAlchemy ORM
+    |                 |
+    |-- localStorage  |
 ```
 
 ---
@@ -378,8 +398,9 @@ For issues or questions, please refer to the individual README files in the `bac
 
 ## 📄 License
 
-This project is open source and available under the MIT License.
+StudyFlow is an open-source project licensed under the MIT License, welcoming contributions from developers around the world.
 
 ---
 
-**Last Updated**: 28-May-2026
+**Last Updated**: 01 June 2026
+---
