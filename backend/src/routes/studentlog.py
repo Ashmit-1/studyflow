@@ -16,9 +16,9 @@ def student_dash(user_id: int,token: str= Depends(Oauth), db: Session = Depends(
     data = verify_token(token)
 
     if not data:
-        raise HTTPException(status_code=401,detail="invaild token")
+        raise HTTPException(status_code=401,detail="invalid token")
     
-    if int(data["sub"] != user_id):
+    if int(data["sub"]) != user_id:
         raise HTTPException(status_code=403, detail="Not allowed")
     
     
