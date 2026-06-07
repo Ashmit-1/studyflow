@@ -4,7 +4,7 @@ from src.deps import get_db
 from sqlalchemy.orm import Session
 from src.schemas import StudentOut
 from src.models import User
-from src.auth_utils import verify_token
+from src.auth.auth_utils import verify_token
 
 route = APIRouter()
 

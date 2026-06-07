@@ -4,10 +4,12 @@ from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from src.deps import get_db
 from src.models import User
-from src.schemas import UserCreate, UserOut
+from src.schemas import UserCreate, UserOut, LoginOut, StudentOut
 from bcrypt import hashpw, gensalt
 from src.routes.login import router as login_router
 from src.routes.studentlog import route as student_login
+from src.auth.redis_client import redis_client
+from src.auth.opt import generate_otp, save_otp, verify_otp
 
 app = FastAPI()
 app.include_router(login_router)
