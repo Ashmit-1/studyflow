@@ -96,8 +96,8 @@ function Register() {
                     ) : (
                         <>
                             <div className={styles["page-set"]}>
-                                <input type="text" value={otp} onChange={(e) => setOtp(e.target.value)} placeholder="Enter OTP" />
-                                <label>OTP</label>
+                                <input type="text" value={otp} onChange={(e) => setOtp(e.target.value)} placeholder=" " />
+                                <label>Enter OTP</label>
                             </div>
                             <button onClick={verifyOtp} disabled={isVerifying}>
                                 {isVerifying ? "Verifying..." : "Verify OTP"}

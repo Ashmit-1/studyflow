@@ -13,7 +13,7 @@ def send_otp_email(to_email: str, otp: str):
 
     try:
         resend.Emails.send({
-            "from": "StudyFlow <onboarding@resend.dev>",
+            "from": "StudyFlow <onboarding@studyflow.dpdns.org>",
             "to": [to_email],
             "subject": "STUDYFLOW OTP",
             "html": f"""
@@ -24,4 +24,5 @@ def send_otp_email(to_email: str, otp: str):
             """
         })
     except Exception as e:
+        print(f"Failed to send email: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Email failed: {str(e)}")

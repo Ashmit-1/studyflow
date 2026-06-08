@@ -16,18 +16,27 @@ The system allows users to create accounts, manage multiple subjects, organize t
 ## 🏗️ Project Structure
 
 ```
-app/
+studyflow/
 ├── backend/                    # FastAPI backend server
 │   ├── app.py                 # Main application entry point
 │   ├── requirements.txt        # Python dependencies
 │   ├── .env                   # Environment configuration
-│   └── src/
+│   ├── .env.example           # Environment configuration example
+│   └── src/ 
 │       ├── __init__.py
 │       ├── database.py        # Database connection setup
 │       ├── deps.py            # Dependency injection
+│       ├── email_service.py   # Resend email sender
 │       ├── init_db.py         # Database initialization
 │       ├── models.py          # SQLAlchemy models
-│       └── schemas.py         # Pydantic request/response schemas
+│       ├── schemas.py         # Pydantic request/response schemas
+│       ├── auth/
+│       │   ├── auth_utils.py
+│       │   ├── otp.py 
+│       │   └── redis_client.py
+│       └── routes/
+│           ├── login.py
+│           └── studentlog.py
 │
 └── frontEnd/                   # React frontend application
     ├── package.json           # NPM dependencies
@@ -149,7 +158,7 @@ Browser (React) -> FastAPI backend -> MySQL database
 5. **Configure environment variables:**
    - Update `.env` file with your MySQL database credentials:
      ```
-     SQL_URL=mysql+pymysql://root:password@localhost/app
+     SQL_URL=mysql+pymysql://root:password@localhost/<your_database_name>
      ```
 
 6. **Initialize database:**
@@ -157,7 +166,13 @@ Browser (React) -> FastAPI backend -> MySQL database
    python -m src.init_db
    ```
 
-7. **Run the backend server:**
+7. **Initialize Redis:**
+  - Install Docker
+    ```bash
+    docker run -d --name redis -p 6379:6379 redis
+    ```
+
+8. **Run the backend server:**
    ```bash
    uvicorn app:app --reload
    ```
@@ -280,6 +295,8 @@ Browser (React) -> FastAPI backend -> MySQL database
 - **bcrypt**: Password hashing and verification
 - **python-dotenv**: Environment variable management
 - **mysql-connector-python**: MySQL database driver
+- **docker**: Runs Redis container
+- **redis**: Temporary OTP/session storage with expiry
 
 ---
 
@@ -326,6 +343,7 @@ Browser (React) -> FastAPI backend -> MySQL database
 - ✅ Toast notification component
 - ✅ Responsive CSS styling
 - ✅ CORS enabled for frontend integration
+- ✅ OTP creation and email verification 
 
 ### In Development 🔄
 - 🔄 Subject creation and management endpoints
@@ -341,7 +359,6 @@ Browser (React) -> FastAPI backend -> MySQL database
 - 🚀 AI-powered study recommendations
 - 🚀 Token refresh endpoint
 - 🚀 User logout functionality
-- 🚀 Email verification
 - 🚀 Password reset functionality
 
 ---
@@ -402,5 +419,5 @@ StudyFlow is an open-source project licensed under the MIT License, welcoming co
 
 ---
 
-**Last Updated**: 01 June 2026
+**Last Updated**: 08 June 2026
 ---

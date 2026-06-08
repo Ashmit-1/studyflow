@@ -6,7 +6,7 @@ def generate_otp() -> str:
     return str(random.randint(100000, 999999))
 
 async def save_otp(email: str, otp: str):
-    await redis_client.set(f"otp:{email}", otp, ex=300) 
+    await redis_client.set(f"otp:{email}",ex=300, value=otp) 
 
 async def verify_otp(email: str, otp: str) -> bool:
     stored_otp = await redis_client.get(f"otp:{email}")
