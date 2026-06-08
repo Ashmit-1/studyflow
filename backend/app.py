@@ -4,10 +4,12 @@ from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from src.deps import get_db
 from src.models import User
-from src.schemas import UserCreate, UserOut
+from src.schemas import UserCreate, UserOut, OTPRequest, OTPVerify
 from bcrypt import hashpw, gensalt
 from src.routes.login import router as login_router
 from src.routes.studentlog import route as student_login
+from src.auth.otp import generate_otp, save_otp, verify_otp
+from src.email_service import send_otp_email
 
 app = FastAPI()
 app.include_router(login_router)
@@ -20,7 +22,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 @app.get("/")
 def user():
@@ -60,3 +61,18 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
+
+@app.post("/request-otp")
+async def request_otp(otp_request: OTPRequest):
+    otp = generate_otp()
+    await save_otp(otp_request.email, otp)
+    send_otp_email(otp_request.email, otp)
+    return {"message": "OTP sent to email"}
+
+@app.post("/verify-otp")
+async def verify_otp_endpoint(otp_verify: OTPVerify):
+    is_valid = await verify_otp(otp_verify.email, otp_verify.otp)
+    if is_valid:
+        return {"message": "OTP verified successfully"}
+    else:
+        raise HTTPException(status_code=400, detail="Invalid OTP")
