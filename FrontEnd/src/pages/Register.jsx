@@ -25,10 +25,12 @@ function Register() {
         });
 
         if (response.ok) {
+            const data = await response.json(); // Helping for debug
+            console.log(data.message);
             setOtpSent(true);
         } else {
             const data = await response.json().catch(() => null);
-            setError(data?.detail || "Unable to send OTP. Please try again.");
+            setError(data?.detail || "Unable to send OTP. Please try again."); // Error msg If OTP not sent by backend
         }
     };
 
