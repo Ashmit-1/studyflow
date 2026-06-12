@@ -10,10 +10,13 @@ from src.routes.login import router as login_router
 from src.routes.studentlog import route as student_login
 from src.auth.otp import generate_otp, save_otp, verify_otp
 from src.email_service import send_otp_email
+from src.routes.subjects import router as subjects_router
+
 
 app = FastAPI()
 app.include_router(login_router)
 app.include_router(student_login)
+app.include_router(subjects_router)
 
 app.add_middleware(
     CORSMiddleware,
