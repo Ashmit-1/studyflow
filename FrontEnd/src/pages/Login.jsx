@@ -41,10 +41,14 @@ export default function Login() {
                 localStorage.setItem("username", data.username);
                 navigate(`/student/${data.id}`);
             } else {
-                setError("Invalid username or password");
-                setTimeout(() => setError(""), 3000); // Clear error after 3 seconds 😁 
+                const data = await response.json().catch(() => null);
+                setError(data?.detail || "Invalid username or password");
+                setTimeout(() => setError(""), 3000);
             }
         } catch (error) {
+            console.error(error);
+            setError("Unable to login. Please check your connection and try again.");
+            setTimeout(() => setError(""), 3000);
         }
     };
 

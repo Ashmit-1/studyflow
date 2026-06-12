@@ -4,7 +4,7 @@ from src.deps import get_db
 from sqlalchemy.orm import Session
 from src.schemas import StudentOut
 from src.models import User
-from src.auth_utils import verify_token
+from src.auth.auth_utils import verify_token
 
 route = APIRouter()
 
@@ -16,9 +16,9 @@ def student_dash(user_id: int,token: str= Depends(Oauth), db: Session = Depends(
     data = verify_token(token)
 
     if not data:
-        raise HTTPException(status_code=401,detail="invaild token")
+        raise HTTPException(status_code=401,detail="invalid token")
     
-    if int(data["sub"] != user_id):
+    if int(data["sub"]) != user_id:
         raise HTTPException(status_code=403, detail="Not allowed")
     
     

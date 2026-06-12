@@ -31,3 +31,14 @@ class StudentOut(BaseModel):
 
     class Config:
         from_attributes= True
+
+class OTPRequest(BaseModel):
+    email: EmailStr
+
+class OTPVerify(BaseModel):
+    email: EmailStr
+    otp: str
+
+class SubjectCreate(BaseModel):
+    subject_name: str
+    exam_date: str
