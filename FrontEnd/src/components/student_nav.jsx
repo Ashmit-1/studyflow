@@ -7,7 +7,7 @@ export default function StudentNav({ username = "Student" }) {
             <h1 className={styles["navbar-title"]}>Hello, {username}!</h1>
             <ul className={styles["nav-list"]}>
                 <li><Link to="/student/table">Study Table</Link></li>
-                <li><Link to="/student/add_subject">Add Subject</Link></li>
+                <li><Link to="/student/:id/subjects">Add Subject</Link></li>
                 <li><Link to="/student/help">Help</Link></li>
                 <li><Link to="/student/logout">Logout</Link></li>
             </ul>

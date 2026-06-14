@@ -1,0 +1,12 @@
+.subjectContainer {
+    width: 85%;
+    margin-left: auto;
+}
+
+.addSubject {
+    width: 20%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

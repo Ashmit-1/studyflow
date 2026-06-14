@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import StudentNav from "../../components/student_nav";
 import Sidebar from "../../components/Sidebar";
+import Toast from "../../components/Toast";
 import style from "../../styles/pages/studentDash.module.css";
 
 export default function Student() {
@@ -39,7 +40,10 @@ export default function Student() {
                         return;
                     }
                     const data = await response.json().catch(() => null);
-                    setError(data?.detail || "Unable to load student profile.");
+                    setError(
+                        data?.detail ||
+                        "Unable to load your dashboard. Please refresh or log in again."
+                    );
                     return;
                 }
 
@@ -47,7 +51,7 @@ export default function Student() {
                 setStudent(data);
             } catch (err) {
                 console.error(err);
-                setError("Unable to load dashboard. Please try again.");
+                setError("Unable to load your dashboard. Please refresh or try again later.");
             }
         };
 
@@ -56,11 +60,11 @@ export default function Student() {
 
     return (
         <>
-            <StudentNav username={student?.username || name} />
             <Sidebar />
             <div className={style["studentDash"]}>
+                <StudentNav username={student?.username || name} />
                 <h1>Student Dashboard</h1>
-                {error && <p>{error}</p>}
+                {error && <Toast message={error} onClose={() => setError("")} />}
                 <p>Student ID: {student?.id || id}</p>
                 <p>Hello, {student?.username || name}!</p>
             </div>

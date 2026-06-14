@@ -30,7 +30,10 @@ function Register() {
             setOtpSent(true);
         } else {
             const data = await response.json().catch(() => null);
-            setError(data?.detail || "Unable to send OTP. Please try again."); // Error msg If OTP not sent by backend
+            setError(
+                data?.detail ||
+                "We couldn't send the OTP. Please confirm your email address and try again."
+            );
         }
     };
 
@@ -48,7 +51,10 @@ function Register() {
 
             if (!response.ok) {
                 const data = await response.json().catch(() => null);
-                setError(data?.detail || "Invalid OTP");
+                setError(
+                    data?.detail ||
+                    "The OTP you entered is incorrect. Please check your email and try again."
+                );
                 return;
             }
 
@@ -65,10 +71,13 @@ function Register() {
                 setOtp("");
             } else {
                 const data = await createResponse.json().catch(() => null);
-                setError(data?.detail || "Registration failed. Please try again.");
+                setError(
+                    data?.detail ||
+                    "Registration could not be completed. Please review your details and try again."
+                );
             }
         } catch (err) {
-            setError("Network error. Please try again.");
+            setError("Network error detected. Please wait a moment and try again.");
         } finally {
             setIsVerifying(false);
         }
