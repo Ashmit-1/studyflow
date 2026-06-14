@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from src.deps import get_db,get_current_user
 from sqlalchemy.orm import Session
 from src.models import Subject
@@ -22,7 +22,7 @@ def add_subjects(user_id: int, subject: SubjectCreate, db: Session = Depends(get
 def get_subjects(user_id: int, db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     if current_user.id != user_id:
         raise HTTPException(status_code=403, detail="Not authorized to access these subjects")
-    subjects = db.query(Subject).filter(Subject.user_id == user_id).all()
+    subjects = db.query(Subject).filter(Subject.user_id == user_id).order_by(Subject.exam_date).all()
     return {"subjects": subjects}
     
 
