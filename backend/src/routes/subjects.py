@@ -1,13 +1,13 @@
-from fastapi import APIRouter, Depends
-from src.deps import get_db
+from fastapi import APIRouter, Depends, HTTPException
+from src.deps import get_db,get_current_user
 from sqlalchemy.orm import Session
 from src.models import Subject
 from src.schemas import SubjectCreate
 
 router = APIRouter()
 
-@router.post("/user/{user_id}/subjects")
-def add_subjects(user_id: int, subject: SubjectCreate, db: Session = Depends(get_db)):
+@router.post("/student/{user_id}/subjects")
+def add_subjects(user_id: int, subject: SubjectCreate, db: Session = Depends(get_db),current_user=Depends(get_current_user)):
     new_subject = Subject(
         user_id=user_id,
         subject_name=subject.subject_name,
@@ -18,13 +18,15 @@ def add_subjects(user_id: int, subject: SubjectCreate, db: Session = Depends(get
     db.refresh(new_subject)
     return {"message": "Subject added successfully", "subject": new_subject}
 
-@router.get("/user/{user_id}/subjects")
-def get_subjects(user_id: int, db: Session = Depends(get_db)):
-    subjects = db.query(Subject).filter(Subject.user_id == user_id).all()
+@router.get("/student/{user_id}/subjects")
+def get_subjects(user_id: int, db: Session = Depends(get_db), current_user=Depends(get_current_user)):
+    if current_user.id != user_id:
+        raise HTTPException(status_code=403, detail="Not authorized to access these subjects")
+    subjects = db.query(Subject).filter(Subject.user_id == user_id).order_by(Subject.exam_date).all()
     return {"subjects": subjects}
     
 
-@router.put("/user/{user_id}/subjects/{subject_id}")
+@router.put("/student/{user_id}/subjects/{subject_id}")
 def update_subject(
     user_id: int,
     subject_id: int,
@@ -50,7 +52,7 @@ def update_subject(
         "subject": existing_subject
     }
 
-@router.delete("/user/{user_id}/subjects/{subject_id}")
+@router.delete("/student/{user_id}/subjects/{subject_id}")
 def delete_subject(
     user_id: int,
     subject_id: int,

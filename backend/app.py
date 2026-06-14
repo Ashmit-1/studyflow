@@ -15,7 +15,7 @@ from src.routes.subjects import router as subjects_router
 
 app = FastAPI()
 app.include_router(login_router)
-app.include_router(student_login)
+app.include_router(student_login, prefix="")
 app.include_router(subjects_router)
 
 app.add_middleware(
