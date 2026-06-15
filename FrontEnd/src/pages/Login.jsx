@@ -42,12 +42,15 @@ export default function Login() {
                 navigate(`/student/${data.id}`);
             } else {
                 const data = await response.json().catch(() => null);
-                setError(data?.detail || "Invalid username or password");
+                setError(
+                    data?.detail ||
+                    "Login failed. Please verify your username and password and try again."
+                );
                 setTimeout(() => setError(""), 3000);
             }
         } catch (error) {
             console.error(error);
-            setError("Unable to login. Please check your connection and try again.");
+            setError("Unable to reach the server. Check your internet connection and try again.");
             setTimeout(() => setError(""), 3000);
         }
     };

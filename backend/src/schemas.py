@@ -38,3 +38,7 @@ class OTPRequest(BaseModel):
 class OTPVerify(BaseModel):
     email: EmailStr
     otp: str
+
+class SubjectCreate(BaseModel):
+    subject_name: str
+    exam_date: str
