@@ -67,6 +67,23 @@ export default function Student() {
                 {error && <Toast message={error} onClose={() => setError("")} />}
                 <p>Student ID: {student?.id || id}</p>
                 <p>Hello, {student?.username || name}!</p>
+                <div className={style["welcome"]}>
+                    <h1 className={style["cardTitle"]}>Student Progress</h1>
+                    <div className={style["cards"]}>
+                        <div className={style["card"]}>
+                            <h2>progess</h2>
+                            <p>45% complete</p>
+                        </div>
+                        <div className={style["card"]}>
+                            <h2>Next Exam</h2>
+                            <p>Mathematics - Midterm Exam</p>
+                        </div>
+                        <div className={style["card"]}>
+                            <h2>Total exam left</h2>
+                            <p>2</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     );

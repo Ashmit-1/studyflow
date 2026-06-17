@@ -1,4 +1,4 @@
-# StudyFlow
+﻿# 🏫 StudyFlow
 
 A full-stack application for planning study routines, managing subjects, and tracking student progress with a React frontend and FastAPI backend.
 
@@ -33,6 +33,7 @@ studyflow/
 │       ├── email_service.py   # OTP email sender
 │       ├── init_db.py         # database initialization script
 │       ├── models.py          # ORM models
+│       ├── schemas.py         # pydantic schemas 
 │       └── routes/
 │           ├── login.py       # login endpoint
 │           ├── studentlog.py  # student dashboard endpoint
@@ -351,4 +352,4 @@ MIT License
 
 ---
 
-**Last Updated:** 15 June 2026
+**Last Updated:** 17 June 2026
