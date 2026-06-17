@@ -1,9 +1,9 @@
-import random
+import secrets
 from src.auth.redis_client import redis_client
 
 
 def generate_otp() -> str:
-    return str(random.randint(100000, 999999))
+    return str(secrets.randbelow(900000)+ 100000)
 
 async def save_otp(email: str, otp: str):
     await redis_client.set(f"otp:{email}",ex=300, value=otp) 
