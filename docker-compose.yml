@@ -1,0 +1,40 @@
+services:
+  backend:
+    build: ./backend
+    container_name: studyflow-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - mysql
+      - redis
+
+  frontend:
+    build: ./FrontEnd
+    container_name: studyflow-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+  mysql:
+    image: mysql:8.0
+    container_name: studyflow-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: app
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  redis:
+    image: redis:7-alpine
+    container_name: studyflow-redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  mysql_data:

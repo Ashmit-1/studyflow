@@ -23,6 +23,15 @@ class LoginOut(BaseModel):
     id:int
     username: str
     access_token: str
+    refresh_token: str
+    token_type: str
+
+class RefreshTokenRequest(BaseModel):
+    refresh_token: str
+
+class TokenRefreshOut(BaseModel):
+    access_token: str
+    refresh_token: str
     token_type: str
 
 class StudentOut(BaseModel):

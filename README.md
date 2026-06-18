@@ -2,6 +2,12 @@
 
 A full-stack application for planning study routines, managing subjects, and tracking student progress with a React frontend and FastAPI backend.
 
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green)
+![React](https://img.shields.io/badge/React-Frontend-blue)
+![Docker](https://img.shields.io/badge/Docker-Containerized-blue)
+![MySQL](https://img.shields.io/badge/MySQL-Database-orange)
+![Redis](https://img.shields.io/badge/Redis-OTP-red)
+
 ## 📋 Project Overview
 
 This repository contains:
@@ -21,6 +27,7 @@ studyflow/
 ├── backend/                    # FastAPI backend server
 │   ├── app.py                 # Main FastAPI application entry
 │   ├── requirements.txt       # Python dependencies
+│   ├── Dockerfile             # Backend Docker image definition
 │   ├── .env                   # Environment variables
 │   ├── .env.example           # Environment example
 │   └── src/
@@ -38,7 +45,9 @@ studyflow/
 │           ├── login.py       # login endpoint
 │           ├── studentlog.py  # student dashboard endpoint
 │           └── subjects.py    # subject CRUD endpoints
+├── docker-compose.yml         # Docker Compose for backend, frontend, MySQL and Redis
 └── FrontEnd/                   # React frontend application
+    ├── Dockerfile             # Frontend Docker image definition
     ├── package.json           # npm dependencies and scripts
     ├── vite.config.js         # Vite config
     ├── index.html             # HTML entry point
@@ -133,13 +142,15 @@ Browser (React) -> FastAPI backend -> MySQL
 
 ## 🚀 Getting Started
 
+## Option 1: Local Development
+
 ### Prerequisites
 - Python 3.8+
 - Node.js 16+
 - MySQL
 - pip
 - npm
-- Docker (optional, for Redis)
+- Docker & Docker Compose (optional, recommended)
 
 ### Backend Setup
 
@@ -196,6 +207,47 @@ Browser (React) -> FastAPI backend -> MySQL
    npm run dev
    ```
 4. Open the app at `http://localhost:5173`
+
+---
+
+## Option 2: 🐳 Docker Setup (Recommended)
+
+### Docker Environment Variables
+
+Update your `.env` file for Docker:
+
+```ini
+SQL_URL=mysql+pymysql://root:password@mysql/app
+```
+
+### Docker Container Setup
+
+This repository now includes Docker support for the backend and frontend, plus a `docker-compose.yml` file to run services together.
+
+1. Start services with Docker Compose
+   ```bash
+   docker compose up --build
+   ```
+2. Stop services
+   ```bash
+   docker compose down
+   ```
+
+
+### Initialize Database
+
+After containers start:
+
+```bash
+docker compose exec backend python -m src.init_db
+```
+
+### Services
+
+- Frontend: http://localhost:5173
+- Backend API: http://localhost:8000
+- MySQL: localhost:3307
+- Redis: localhost:6379
 
 ---
 
@@ -307,7 +359,6 @@ Browser (React) -> FastAPI backend -> MySQL
 
 ## 🚀 Future Enhancements
 
-- Logout and token refresh
 - Password reset
 - Study schedule calendar
 - Topic priority visualization
@@ -352,4 +403,4 @@ MIT License
 
 ---
 
-**Last Updated:** 17 June 2026
+**Last Updated:** 18 June 2026
