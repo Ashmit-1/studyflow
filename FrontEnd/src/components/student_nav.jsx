@@ -4,7 +4,7 @@ import styles from "../styles/components/student_nav.module.css";
 export default function StudentNav({ username = "Student" }) {
     return (
         <nav className={styles.navbar}>
-            <h1 className={styles["navbar-title"]}>Hello, {username}!</h1>
+            <h1 className={styles["navbar-title"]}>Welcome Back, {username}!</h1>
             <ul className={styles["nav-list"]}>
                 <li><Link to="/student/table">Study Table</Link></li>
                 <li><Link to="/student/:id/subjects">Add Subject</Link></li>
