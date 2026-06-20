@@ -11,7 +11,8 @@ def add_subjects(user_id: int, subject: SubjectCreate, db: Session = Depends(get
     new_subject = Subject(
         user_id=user_id,
         subject_name=subject.subject_name,
-        exam_date=subject.exam_date
+        exam_date=subject.exam_date,
+        difficulty= subject.difficulty
     )
     db.add(new_subject)
     db.commit()
@@ -43,6 +44,7 @@ def update_subject(
 
     existing_subject.subject_name = subject.subject_name
     existing_subject.exam_date = subject.exam_date
+    existing_subject.difficulty = subject.difficulty
 
     db.commit()
     db.refresh(existing_subject)

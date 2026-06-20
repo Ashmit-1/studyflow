@@ -112,3 +112,24 @@
 .subjectTable button:hover {
     transform: scale(1.05);
 }
+
+.difficultyGroup {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+.difficultyGroup label {
+    flex: 2;
+    padding: 8px;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: white;
+}
+
+.difficultyGroup input {
+    margin-right: 8px;
+}

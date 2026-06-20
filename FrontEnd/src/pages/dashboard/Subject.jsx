@@ -7,7 +7,8 @@ import styles from "../../styles/pages/subject.module.css";
 export default function Subject() {
     let [subject, setSubjectName] = useState({
         subject_name: "",
-        exam_date: ""
+        exam_date: "",
+        difficulty: ""
     });
     let [subjects, setSubjects] = useState([]);
     let [error, setError] = useState("");
@@ -60,7 +61,7 @@ export default function Subject() {
             });
 
             const data = await response.json();
-            setSubjectName({ subject_name: "", exam_date: "" });
+            setSubjectName({ subject_name: "", exam_date: "", defficulty: "" });
             setSubjects([...subjects, data.subject]);
         } catch (error) {
             console.error("Error adding subject:", error);
@@ -88,6 +89,46 @@ export default function Subject() {
                     value={subject.exam_date}
                     onChange={(e) => setSubjectName({ ...subject, exam_date: e.target.value })}
                 />
+                <div className={styles["difficultyGroup"]}>
+                    <label>
+                        <input
+                            type="radio"
+                            name="difficulty"
+                            value="easy"
+                            checked={subject.difficulty === "easy"}
+                            onChange={(e) =>
+                                setSubjectName({ ...subject, difficulty: e.target.value })
+                            }
+                        />
+                        Easy
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="difficulty"
+                            value="medium"
+                            checked={subject.difficulty === "medium"}
+                            onChange={(e) =>
+                                setSubjectName({ ...subject, difficulty: e.target.value })
+                            }
+                        />
+                        Medium
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="difficulty"
+                            value="hard"
+                            checked={subject.difficulty === "hard"}
+                            onChange={(e) =>
+                                setSubjectName({ ...subject, difficulty: e.target.value })
+                            }
+                        />
+                        Hard
+                    </label>
+                </div>
                 <button onClick={onSubmit}>Add Subject</button>
             </div>
 
@@ -102,6 +143,7 @@ export default function Subject() {
                                 <th>Subject ID</th>
                                 <th>Subject Name</th>
                                 <th>Exam Date</th>
+                                <th>Difficulty</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -111,6 +153,7 @@ export default function Subject() {
                                     <td>{subj.id}</td>
                                     <td>{subj.subject_name}</td>
                                     <td>{subj.exam_date}</td>
+                                    <td>{subj.difficulty}</td>
                                     <td><button>Edit</button></td>
                                 </tr>
                             ))}
