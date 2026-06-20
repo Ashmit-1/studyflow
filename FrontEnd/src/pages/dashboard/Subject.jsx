@@ -91,7 +91,7 @@ export default function Subject() {
                 <button onClick={onSubmit}>Add Subject</button>
             </div>
 
-            <div>
+            <div className={styles["subjectTable"]}>
                 <h2>Your Subjects</h2>
                 {subjects.length === 0 ? (
                     <p>No subjects added yet.</p>
@@ -102,6 +102,7 @@ export default function Subject() {
                                 <th>Subject ID</th>
                                 <th>Subject Name</th>
                                 <th>Exam Date</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -110,6 +111,7 @@ export default function Subject() {
                                     <td>{subj.id}</td>
                                     <td>{subj.subject_name}</td>
                                     <td>{subj.exam_date}</td>
+                                    <td><button>Edit</button></td>
                                 </tr>
                             ))}
                         </tbody>
