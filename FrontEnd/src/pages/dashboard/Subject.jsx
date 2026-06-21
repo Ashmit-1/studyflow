@@ -3,15 +3,18 @@ import StudentNav from "../../components/student_nav";
 import Sidebar from "../../components/Sidebar";
 import Toast from "../../components/Toast";
 import styles from "../../styles/pages/subject.module.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Subject() {
     let [subject, setSubjectName] = useState({
         subject_name: "",
-        exam_date: ""
+        exam_date: "",
+        difficulty: ""
     });
     let [subjects, setSubjects] = useState([]);
     let [error, setError] = useState("");
 
+    const navigate = useNavigate();
     let userId = localStorage.getItem("id");
     let username = localStorage.getItem("username");
 
@@ -60,7 +63,7 @@ export default function Subject() {
             });
 
             const data = await response.json();
-            setSubjectName({ subject_name: "", exam_date: "" });
+            setSubjectName({ subject_name: "", exam_date: "", difficulty: "" });
             setSubjects([...subjects, data.subject]);
         } catch (error) {
             console.error("Error adding subject:", error);
@@ -76,7 +79,7 @@ export default function Subject() {
             {error && <Toast message={error} onClose={() => setError("")} />}
 
             <div className={styles["addSubject"]}>
-                <h2>Add Subject</h2>
+                <h2>Add Exam</h2>
                 <input
                     type="text"
                     placeholder="Subject Name"
@@ -88,11 +91,52 @@ export default function Subject() {
                     value={subject.exam_date}
                     onChange={(e) => setSubjectName({ ...subject, exam_date: e.target.value })}
                 />
+                <div className={styles["difficultyGroup"]}>
+                    <label>
+                        <input
+                            type="radio"
+                            name="difficulty"
+                            value="easy"
+                            checked={subject.difficulty === "easy"}
+                            onChange={(e) =>
+                                setSubjectName({ ...subject, difficulty: e.target.value })
+                            }
+                            required
+                        />
+                        Easy
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="difficulty"
+                            value="medium"
+                            checked={subject.difficulty === "medium"}
+                            onChange={(e) =>
+                                setSubjectName({ ...subject, difficulty: e.target.value })
+                            }
+                        />
+                        Medium
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="difficulty"
+                            value="hard"
+                            checked={subject.difficulty === "hard"}
+                            onChange={(e) =>
+                                setSubjectName({ ...subject, difficulty: e.target.value })
+                            }
+                        />
+                        Hard
+                    </label>
+                </div>
                 <button onClick={onSubmit}>Add Subject</button>
             </div>
 
-            <div>
-                <h2>Your Subjects</h2>
+            <div className={styles["subjectTable"]}>
+                <h2>Your Upcoming Exam</h2>
                 {subjects.length === 0 ? (
                     <p>No subjects added yet.</p>
                 ) : (
@@ -102,6 +146,8 @@ export default function Subject() {
                                 <th>Subject ID</th>
                                 <th>Subject Name</th>
                                 <th>Exam Date</th>
+                                <th>Difficulty</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -110,12 +156,14 @@ export default function Subject() {
                                     <td>{subj.id}</td>
                                     <td>{subj.subject_name}</td>
                                     <td>{subj.exam_date}</td>
+                                    <td>{subj.difficulty}</td>
+                                    <td><button onClick={() => navigate(`/student/${userId}/subjects/${subj.id}/edit`)}>✏️ Edit</button></td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 )}
             </div>
-        </div>
+        </div >
     );
 }

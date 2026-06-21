@@ -4,6 +4,7 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Student from "./pages/dashboard/Student";
 import Subject from "./pages/dashboard/Subject";
+import EditSubject from "./pages/dashboard/EditSubject";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/student/:id" element={<Student />} />
       <Route path="/student/:id/subjects" element={<Subject />} />
+      <Route path="/student/:id/subjects/:subjectId/edit" element={<EditSubject />} />
     </Routes>
   );
 }

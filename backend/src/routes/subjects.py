@@ -11,7 +11,8 @@ def add_subjects(user_id: int, subject: SubjectCreate, db: Session = Depends(get
     new_subject = Subject(
         user_id=user_id,
         subject_name=subject.subject_name,
-        exam_date=subject.exam_date
+        exam_date=subject.exam_date,
+        difficulty= subject.difficulty
     )
     db.add(new_subject)
     db.commit()
@@ -31,18 +32,23 @@ def update_subject(
     user_id: int,
     subject_id: int,
     subject: SubjectCreate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user)
 ):
+    if current_user.id != user_id:
+        raise HTTPException(status_code=403, detail="Not authorized to update this subject")
+
     existing_subject = db.query(Subject).filter(
         Subject.id == subject_id,
         Subject.user_id == user_id
     ).first()
 
     if not existing_subject:
-        return {"error": "Subject not found"}
+        raise HTTPException(status_code=404, detail="Subject not found")
 
     existing_subject.subject_name = subject.subject_name
     existing_subject.exam_date = subject.exam_date
+    existing_subject.difficulty = subject.difficulty
 
     db.commit()
     db.refresh(existing_subject)
@@ -51,6 +57,26 @@ def update_subject(
         "message": "Subject updated successfully",
         "subject": existing_subject
     }
+
+@router.get("/student/{user_id}/subjects/{subject_id}")
+def get_subject(
+    user_id: int,
+    subject_id: int,
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user)
+):
+    if current_user.id != user_id:
+        raise HTTPException(status_code=403, detail="Not authorized to access this subject")
+
+    subject = db.query(Subject).filter(
+        Subject.id == subject_id,
+        Subject.user_id == user_id
+    ).first()
+
+    if not subject:
+        raise HTTPException(status_code=404, detail="Subject not found")
+
+    return {"subject": subject}
 
 @router.delete("/student/{user_id}/subjects/{subject_id}")
 def delete_subject(

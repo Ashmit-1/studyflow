@@ -51,3 +51,4 @@ class OTPVerify(BaseModel):
 class SubjectCreate(BaseModel):
     subject_name: str
     exam_date: str
+    difficulty: str
