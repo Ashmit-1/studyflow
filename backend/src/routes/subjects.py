@@ -3,11 +3,14 @@ from src.deps import get_db,get_current_user
 from sqlalchemy.orm import Session
 from src.models import Subject
 from src.schemas import SubjectCreate
+from datetime import date
 
 router = APIRouter()
 
 @router.post("/student/{user_id}/subjects")
 def add_subjects(user_id: int, subject: SubjectCreate, db: Session = Depends(get_db),current_user=Depends(get_current_user)):
+    if subject.exam_date < date.today():
+        raise HTTPException(status_code=422, detail="Exam date is Invalid.")
     new_subject = Subject(
         user_id=user_id,
         subject_name=subject.subject_name,

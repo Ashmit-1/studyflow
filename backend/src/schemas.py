@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr
-
+from datetime import date
 
 class UserCreate(BaseModel):
     username: str
@@ -50,5 +50,5 @@ class OTPVerify(BaseModel):
 
 class SubjectCreate(BaseModel):
     subject_name: str
-    exam_date: str
+    exam_date: date
     difficulty: str

@@ -48,6 +48,13 @@ export default function Subject() {
     }, [userId]);
 
     const onSubmit = async (e) => {
+        e.preventDefault();
+        const today = new Date().toISOString().split("T")[0];
+
+        if (subject.exam_date < today) {
+            setError("Exam date cannot be in the past.");
+            return;
+        }
         try {
             const response = await fetchWithAuth(`http://127.0.0.1:8000/student/${userId}/subjects`, {
                 method: "POST",
@@ -73,7 +80,7 @@ export default function Subject() {
             <h1>Subject Page</h1>
             {error && <Toast message={error} onClose={() => setError("")} />}
 
-            <div className={styles["addSubject"]}>
+            <form className={styles["addSubject"]} onSubmit={onSubmit}>
                 <h2>Add Exam</h2>
                 <input
                     type="text"
@@ -127,8 +134,8 @@ export default function Subject() {
                         Hard
                     </label>
                 </div>
-                <button onClick={onSubmit}>Add Subject</button>
-            </div>
+                <button type="submit">Add Subject</button>
+            </form>
 
             <div className={styles["subjectTable"]}>
                 <h2>Your Upcoming Exam</h2>
