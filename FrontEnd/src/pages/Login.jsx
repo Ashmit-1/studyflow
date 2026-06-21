@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "../styles/pages/login.module.css";
 import { useNavigate } from "react-router-dom";
 import Toast from "../components/Toast";
-
+import { saveAuthTokens } from "../api";
 
 export default function Login() {
     const navigate = useNavigate();
@@ -36,9 +36,12 @@ export default function Login() {
             if (response.ok) {
                 const data = await response.json();
                 console.log(data); // Log for debugging 😁
-                localStorage.setItem("token", data.access_token);
-                localStorage.setItem("id", data.id);
-                localStorage.setItem("username", data.username);
+                saveAuthTokens({
+                    access_token: data.access_token,
+                    refresh_token: data.refresh_token,
+                    id: data.id,
+                    username: data.username,
+                });
                 navigate(`/student/${data.id}`);
             } else {
                 const data = await response.json().catch(() => null);

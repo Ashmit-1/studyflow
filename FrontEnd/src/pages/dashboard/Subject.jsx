@@ -4,6 +4,7 @@ import Sidebar from "../../components/Sidebar";
 import Toast from "../../components/Toast";
 import styles from "../../styles/pages/subject.module.css";
 import { useNavigate } from "react-router-dom";
+import { fetchWithAuth } from "../../api";
 
 export default function Subject() {
     let [subject, setSubjectName] = useState({
@@ -22,11 +23,7 @@ export default function Subject() {
     useEffect(() => {
         const fetchSubjects = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/student/${userId}/subjects`, {
-                    headers: {
-                        "Authorization": `Bearer ${localStorage.getItem("token")}`
-                    }
-                });
+                const response = await fetchWithAuth(`http://127.0.0.1:8000/student/${userId}/subjects`);
 
                 if (!response.ok) {
                     if (response.status === 401 || response.status === 403) {
@@ -52,12 +49,10 @@ export default function Subject() {
 
     const onSubmit = async (e) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/student/${userId}/subjects`, {
+            const response = await fetchWithAuth(`http://127.0.0.1:8000/student/${userId}/subjects`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem("token")}`
-
                 },
                 body: JSON.stringify(subject)
             });

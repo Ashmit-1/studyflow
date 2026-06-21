@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import StudentNav from "../../components/student_nav";
 import Sidebar from "../../components/Sidebar";
 import Toast from "../../components/Toast";
+import { fetchWithAuth } from "../../api";
 import style from "../../styles/pages/studentDash.module.css";
 
 export default function Student() {
@@ -28,11 +29,7 @@ export default function Student() {
 
         const fetchStudent = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/student/${id}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+                const response = await fetchWithAuth(`http://127.0.0.1:8000/student/${id}`);
 
                 if (!response.ok) {
                     if (response.status === 401 || response.status === 403) {
