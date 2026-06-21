@@ -3,6 +3,7 @@ import StudentNav from "../../components/student_nav";
 import Sidebar from "../../components/Sidebar";
 import Toast from "../../components/Toast";
 import styles from "../../styles/pages/subject.module.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Subject() {
     let [subject, setSubjectName] = useState({
@@ -13,6 +14,7 @@ export default function Subject() {
     let [subjects, setSubjects] = useState([]);
     let [error, setError] = useState("");
 
+    const navigate = useNavigate();
     let userId = localStorage.getItem("id");
     let username = localStorage.getItem("username");
 
@@ -61,7 +63,7 @@ export default function Subject() {
             });
 
             const data = await response.json();
-            setSubjectName({ subject_name: "", exam_date: "", defficulty: "" });
+            setSubjectName({ subject_name: "", exam_date: "", difficulty: "" });
             setSubjects([...subjects, data.subject]);
         } catch (error) {
             console.error("Error adding subject:", error);
@@ -77,7 +79,7 @@ export default function Subject() {
             {error && <Toast message={error} onClose={() => setError("")} />}
 
             <div className={styles["addSubject"]}>
-                <h2>Add Subject</h2>
+                <h2>Add Exam</h2>
                 <input
                     type="text"
                     placeholder="Subject Name"
@@ -99,6 +101,7 @@ export default function Subject() {
                             onChange={(e) =>
                                 setSubjectName({ ...subject, difficulty: e.target.value })
                             }
+                            required
                         />
                         Easy
                     </label>
@@ -133,7 +136,7 @@ export default function Subject() {
             </div>
 
             <div className={styles["subjectTable"]}>
-                <h2>Your Subjects</h2>
+                <h2>Your Upcoming Exam</h2>
                 {subjects.length === 0 ? (
                     <p>No subjects added yet.</p>
                 ) : (
@@ -154,13 +157,13 @@ export default function Subject() {
                                     <td>{subj.subject_name}</td>
                                     <td>{subj.exam_date}</td>
                                     <td>{subj.difficulty}</td>
-                                    <td><button>Edit</button></td>
+                                    <td><button onClick={() => navigate(`/student/${userId}/subjects/${subj.id}/edit`)}>✏️ Edit</button></td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 )}
             </div>
-        </div>
+        </div >
     );
 }
