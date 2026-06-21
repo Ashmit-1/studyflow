@@ -64,6 +64,7 @@ studyflow/
         │   ├── Login.jsx
         │   ├── Register.jsx
         │   └── dashboard/
+        │       ├── EditSubject.jsx
         │       ├── Student.jsx
         │       └── Subject.jsx
         ├── styles/
@@ -72,6 +73,7 @@ studyflow/
         │   │   ├── student_nav.module.css
         │   │   └── toast.module.css
         │   └── pages/
+        │       ├── editSubject.module.css
         │       ├── home.module.css
         │       ├── login.module.css
         │       ├── register.module.css
@@ -87,7 +89,7 @@ studyflow/
 ```
 Browser (React) -> FastAPI backend -> MySQL
                        |
-                       -> Redis for OTP/session
+                       -> Redis for OTP
 ```
 
 ---
@@ -257,6 +259,14 @@ docker compose exec backend python -m src.init_db
 - `GET /`
 - Response: `{"hello":"world"}`
 
+### Subject Endpoints
+- `GET /student/{user_id}/subjects/{subject_id}`
+  - Returns a single subject by user and subject id
+  - Requires `Authorization: Bearer <token>`
+- `PUT /student/{user_id}/subjects/{subject_id}`
+  - Updates subject data for the authenticated user
+  - Requires `Authorization: Bearer <token>`
+
 ### Register User
 - `POST /users`
 - Request JSON:
@@ -403,4 +413,4 @@ MIT License
 
 ---
 
-**Last Updated:** 18 June 2026
+**Last Updated:** 21 June 2026
