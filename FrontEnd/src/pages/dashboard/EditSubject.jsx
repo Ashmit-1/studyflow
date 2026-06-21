@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Toast from "../../components/Toast";
+import { fetchWithAuth } from "../../api";
 import style from "../../styles/pages/editSubject.module.css"
 
 export default function EditSubject() {
@@ -22,13 +23,8 @@ export default function EditSubject() {
                 return;
             }
 
-            const response = await fetch(
-                `http://127.0.0.1:8000/student/${userId}/subjects/${subjectId}`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
+            const response = await fetchWithAuth(
+                `http://127.0.0.1:8000/student/${userId}/subjects/${subjectId}`
             );
 
             const data = await response.json().catch(() => null);
@@ -58,13 +54,12 @@ export default function EditSubject() {
             return;
         }
 
-        const response = await fetch(
+        const response = await fetchWithAuth(
             `http://127.0.0.1:8000/student/${userId}/subjects/${subjectId}`,
             {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(subject)
             }
