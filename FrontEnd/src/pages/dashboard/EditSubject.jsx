@@ -119,7 +119,7 @@ export default function EditSubject() {
                     <option value="medium">Medium</option>
                     <option value="hard">Hard</option>
                 </select>
-                <button type="submit">Save Changes</button>
+                <button type="submit">Save</button>
             </form>
         </div>
     );

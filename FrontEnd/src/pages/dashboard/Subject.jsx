@@ -79,7 +79,7 @@ export default function Subject() {
             {error && <Toast message={error} onClose={() => setError("")} />}
 
             <div className={styles["addSubject"]}>
-                <h2>Add Subject</h2>
+                <h2>Add Exam</h2>
                 <input
                     type="text"
                     placeholder="Subject Name"
@@ -136,7 +136,7 @@ export default function Subject() {
             </div>
 
             <div className={styles["subjectTable"]}>
-                <h2>Your Subjects</h2>
+                <h2>Your Upcoming Exam</h2>
                 {subjects.length === 0 ? (
                     <p>No subjects added yet.</p>
                 ) : (

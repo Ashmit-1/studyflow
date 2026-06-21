@@ -15,6 +15,7 @@
     border-radius: 16px;
     padding: 16px 24px;
     gap: 10px;
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.28);
 }
 
 .editSubject h1 {
@@ -30,4 +31,31 @@
 
 .editSubject input:focus {
     outline: none;
+}
+
+.editSubject form button {
+    background-color: blue;
+    width: fit-content;
+    align-self: center;
+    padding: 10px 24px;
+    border-radius: 999px;
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+
+.editSubject form button:hover {
+    transform: translateY(-2px);
+}
+
+select {
+    background: rgba(255, 255, 255, .08);
+    color: white;
+    border-radius: 12px;
+    padding: 12px;
+    cursor: pointer;
+}
+
+option {
+    background-color: #1f1f1f;
+    color: #f1f1f1;
 }
