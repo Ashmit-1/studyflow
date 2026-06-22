@@ -4,6 +4,11 @@ import Sidebar from "../../components/Sidebar";
 import Toast from "../../components/Toast";
 import styles from "../../styles/pages/subject.module.css";
 import { useNavigate } from "react-router-dom";
+import { fetchWithAuth } from "../../api";
+import DatePicker from "react-datepicker";
+import { FaCalendarAlt } from "react-icons/fa"
+import "react-datepicker/dist/react-datepicker.css";
+
 
 export default function Subject() {
     let [subject, setSubjectName] = useState({
@@ -22,11 +27,7 @@ export default function Subject() {
     useEffect(() => {
         const fetchSubjects = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/student/${userId}/subjects`, {
-                    headers: {
-                        "Authorization": `Bearer ${localStorage.getItem("token")}`
-                    }
-                });
+                const response = await fetchWithAuth(`http://127.0.0.1:8000/student/${userId}/subjects`);
 
                 if (!response.ok) {
                     if (response.status === 401 || response.status === 403) {
@@ -51,13 +52,18 @@ export default function Subject() {
     }, [userId]);
 
     const onSubmit = async (e) => {
+        e.preventDefault();
+        const today = new Date().toISOString().split("T")[0];
+
+        if (subject.exam_date < today) {
+            setError("Exam date cannot be in the past.");
+            return;
+        }
         try {
-            const response = await fetch(`http://127.0.0.1:8000/student/${userId}/subjects`, {
+            const response = await fetchWithAuth(`http://127.0.0.1:8000/student/${userId}/subjects`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem("token")}`
-
                 },
                 body: JSON.stringify(subject)
             });
@@ -71,14 +77,29 @@ export default function Subject() {
         }
     };
 
+    const toDelete = async (subjId) => {
+        try {
+            const response = await fetchWithAuth(`http://127.0.0.1:8000/student/${userId}/subjects/${subjId}`, {
+                method: "DELETE",
+            });
+            if (!response.ok) {
+                setError("Could not delete the subject, pls Try Again.");
+                return;
+            }
+            setSubjects(subjects.filter((subj) => subj.id !== subjId));
+        } catch (error) {
+            console.log("Error: ", error);
+            setError("Could not Delete the subject, pls Try Again")
+        }
+    };
     return (
         <div className={styles["subjectContainer"]}>
             <StudentNav username={username} />
             <Sidebar />
-            <h1>Subject Page</h1>
+            <h1 className={styles["title"]}>Subject Page</h1>
             {error && <Toast message={error} onClose={() => setError("")} />}
 
-            <div className={styles["addSubject"]}>
+            <form className={styles["addSubject"]} onSubmit={onSubmit}>
                 <h2>Add Exam</h2>
                 <input
                     type="text"
@@ -86,10 +107,18 @@ export default function Subject() {
                     value={subject.subject_name}
                     onChange={(e) => setSubjectName({ ...subject, subject_name: e.target.value })}
                 />
-                <input
-                    type="date"
-                    value={subject.exam_date}
-                    onChange={(e) => setSubjectName({ ...subject, exam_date: e.target.value })}
+                <DatePicker
+                    selected={subject.exam_date ? new Date(subject.exam_date) : null}
+                    onChange={(date) =>
+                        setSubjectName({
+                            ...subject,
+                            exam_date: date.toLocaleDateString("en-CA")
+                        })
+                    }
+                    minDate={new Date()}
+                    dateFormat="dd-MM-yyyy"
+                    placeholderText="Select Exam Date"
+                    className={styles.dateInput}
                 />
                 <div className={styles["difficultyGroup"]}>
                     <label>
@@ -132,8 +161,8 @@ export default function Subject() {
                         Hard
                     </label>
                 </div>
-                <button onClick={onSubmit}>Add Subject</button>
-            </div>
+                <button type="submit">Add Subject</button>
+            </form>
 
             <div className={styles["subjectTable"]}>
                 <h2>Your Upcoming Exam</h2>
@@ -155,9 +184,21 @@ export default function Subject() {
                                 <tr key={subj.id}>
                                     <td>{subj.id}</td>
                                     <td>{subj.subject_name}</td>
-                                    <td>{subj.exam_date}</td>
-                                    <td>{subj.difficulty}</td>
-                                    <td><button onClick={() => navigate(`/student/${userId}/subjects/${subj.id}/edit`)}>✏️ Edit</button></td>
+                                    <td>
+                                        {new Date(subj.exam_date).toLocaleDateString("en-GB", {
+                                            day: "numeric",
+                                            month: "short",
+                                            year: "numeric",
+                                        })}
+                                    </td>
+                                    <td>
+                                        <span className={styles[subj.difficulty]}>{subj.difficulty}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button onClick={() => navigate(`/student/${userId}/subjects/${subj.id}/edit`)} className={styles["edit"]}>✏️ Edit</button>
+                                        <button onClick={() => toDelete(subj.id)} className={styles["delete"]}>Delete </button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>

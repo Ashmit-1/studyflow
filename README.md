@@ -367,6 +367,12 @@ docker compose exec backend python -m src.init_db
 - Study plan scheduling UI
 - Progress tracking UI
 
+## 🔔 Recent changes
+
+- Updated `FrontEnd/src/pages/dashboard/Subject.jsx` — changes to the Subject dashboard component.
+- Updated `FrontEnd/src/styles/pages/subject.module.css` — corresponding style updates for the Subject page.
+- Updated `.github/workflows/docker-ci.yml` — CI workflow for Docker was added/modified.
+
 ## 🚀 Future Enhancements
 
 - Password reset
@@ -413,4 +419,4 @@ MIT License
 
 ---
 
-**Last Updated:** 21 June 2026
+**Last Updated:** 22 June 2026

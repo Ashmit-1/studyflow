@@ -33,14 +33,10 @@
 }
 
 .addSubject input:focus {
-    border: 1px rgba(252, 252, 252, 0.500);
+    outline: none;
+    border-color: #3b82f6;
 }
 
-.addSubject [type="date"]::-webkit-calendar-picker-indicator {
-    filter: invert(1);
-    cursor: pointer;
-    opacity: 0.8;
-}
 
 .addSubject button {
     border: 1px solid #484F58;
@@ -99,7 +95,8 @@
     font-weight: 600;
 }
 
-.subjectTable button {
+.subjectTable .edit {
+    margin-right: 10px;
     cursor: pointer;
     border: none;
     color: white;
@@ -107,6 +104,32 @@
     padding: 6px 20px;
     border-radius: 999px;
     transition: all 0.3s ease;
+}
+
+.subjectTable .delete {
+    margin-left: 10px;
+    cursor: pointer;
+    border: none;
+    color: white;
+    background: rgb(242, 39, 39);
+    padding: 6px 20px;
+    border-radius: 999px;
+    transition: all 0.3s ease;
+}
+
+.dateInput {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #374151;
+    border-radius: 12px;
+    background: #1f2937;
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+.dateInput:focus {
+    border-color: #3b82f6;
 }
 
 .subjectTable button:hover {
@@ -132,4 +155,22 @@
 
 .difficultyGroup input {
     margin-right: 8px;
+}
+
+.easy {
+    color: #4caf50;
+}
+
+.medium {
+    color: #ff9800;
+}
+
+.hard {
+    color: #f44336;
+}
+
+.subjectContainer .title {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+    font-size: 2rem;
 }
