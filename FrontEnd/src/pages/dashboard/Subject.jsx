@@ -5,6 +5,10 @@ import Toast from "../../components/Toast";
 import styles from "../../styles/pages/subject.module.css";
 import { useNavigate } from "react-router-dom";
 import { fetchWithAuth } from "../../api";
+import DatePicker from "react-datepicker";
+import { FaCalendarAlt } from "react-icons/fa"
+import "react-datepicker/dist/react-datepicker.css";
+
 
 export default function Subject() {
     let [subject, setSubjectName] = useState({
@@ -73,11 +77,26 @@ export default function Subject() {
         }
     };
 
+    const toDelete = async (subjId) => {
+        try {
+            const response = await fetchWithAuth(`http://127.0.0.1:8000/student/${userId}/subjects/${subjId}`, {
+                method: "DELETE",
+            });
+            if (!response.ok) {
+                setError("Could not delete the subject, pls Try Again.");
+                return;
+            }
+            setSubjects(subjects.filter((subj) => subj.id !== subjId));
+        } catch (error) {
+            console.log("Error: ", error);
+            setError("Could not Delete the subject, pls Try Again")
+        }
+    };
     return (
         <div className={styles["subjectContainer"]}>
             <StudentNav username={username} />
             <Sidebar />
-            <h1>Subject Page</h1>
+            <h1 className={styles["title"]}>Subject Page</h1>
             {error && <Toast message={error} onClose={() => setError("")} />}
 
             <form className={styles["addSubject"]} onSubmit={onSubmit}>
@@ -88,10 +107,18 @@ export default function Subject() {
                     value={subject.subject_name}
                     onChange={(e) => setSubjectName({ ...subject, subject_name: e.target.value })}
                 />
-                <input
-                    type="date"
-                    value={subject.exam_date}
-                    onChange={(e) => setSubjectName({ ...subject, exam_date: e.target.value })}
+                <DatePicker
+                    selected={subject.exam_date ? new Date(subject.exam_date) : null}
+                    onChange={(date) =>
+                        setSubjectName({
+                            ...subject,
+                            exam_date: date.toLocaleDateString("en-CA")
+                        })
+                    }
+                    minDate={new Date()}
+                    dateFormat="dd-MM-yyyy"
+                    placeholderText="Select Exam Date"
+                    className={styles.dateInput}
                 />
                 <div className={styles["difficultyGroup"]}>
                     <label>
@@ -157,9 +184,21 @@ export default function Subject() {
                                 <tr key={subj.id}>
                                     <td>{subj.id}</td>
                                     <td>{subj.subject_name}</td>
-                                    <td>{subj.exam_date}</td>
-                                    <td>{subj.difficulty}</td>
-                                    <td><button onClick={() => navigate(`/student/${userId}/subjects/${subj.id}/edit`)}>✏️ Edit</button></td>
+                                    <td>
+                                        {new Date(subj.exam_date).toLocaleDateString("en-GB", {
+                                            day: "numeric",
+                                            month: "short",
+                                            year: "numeric",
+                                        })}
+                                    </td>
+                                    <td>
+                                        <span className={styles[subj.difficulty]}>{subj.difficulty}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button onClick={() => navigate(`/student/${userId}/subjects/${subj.id}/edit`)} className={styles["edit"]}>✏️ Edit</button>
+                                        <button onClick={() => toDelete(subj.id)} className={styles["delete"]}>Delete </button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
