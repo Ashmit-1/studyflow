@@ -132,7 +132,11 @@
     border-color: #3b82f6;
 }
 
-.subjectTable button:hover {
+.subjectTable .delete:hover {
+    transform: scale(1.05);
+}
+
+.subjectTable .edit:hover {
     transform: scale(1.05);
 }
 
@@ -173,4 +177,21 @@
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     text-align: center;
     font-size: 2rem;
+}
+
+.genTable {
+    font-size: 1rem;
+    text-align: right;
+    color: #a9a9a9;
+    border: 2px solid rgba(2, 67, 69, 0.411);
+    border-radius: 24px;
+    padding: 6px 12px;
+    cursor: pointer;
+    margin: 10px;
+    background: #7c3aed;
+    transition: all 0.3s ease;
+}
+
+.genTable:hover {
+    transform: scale(1.05);
 }
