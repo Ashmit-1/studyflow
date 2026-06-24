@@ -44,7 +44,11 @@ class User(Base):
         "AIRecommendation",
         back_populates="user"
     )
-
+    ai_table = relationship(
+    "AITable",
+    back_populates="user",
+    uselist=False
+)
 
 class Subject(Base):
     __tablename__ = "subjects"
@@ -303,4 +307,23 @@ class AIRecommendation(Base):
     user = relationship(
         "User",
         back_populates="recommendations"
+    )
+
+class AITable(Base):
+    __tablename__ = "ai_table"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    user_id = Column(
+        Integer,
+        ForeignKey("users.id"),
+        unique=True,
+        nullable=False
+    )
+
+    ai_table = Column(Text)
+
+    user = relationship(
+        "User",
+        back_populates="ai_table"
     )
