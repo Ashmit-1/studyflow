@@ -79,6 +79,7 @@ def generate_table(
                     Rules:
                     - Study date must be before exam_date.
                     - Study date must not be today if exam is today.
+                    - subject_data.exam_date is Deadend for the Exam table.
                     - Do not create sessions on or after exam_date.
 
                     Return ONLY JSON:
