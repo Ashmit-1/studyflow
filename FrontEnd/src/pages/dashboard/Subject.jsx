@@ -93,19 +93,23 @@ export default function Subject() {
         }
     };
 
-    const onGen = async (e) => {
+    const onGen = async () => {
         try {
-            const response = await fetchWithAuth(`http://127.0.0.1:8000/student/${userId}/subjects/generate-table`, {
-                method: "GET",
-                headers: {
-                    "content-Type": "application/json",
-                },
-            });
+            const response = await fetchWithAuth(
+                `http://127.0.0.1:8000/student/${userId}/subjects/generate-table`,
+                { method: "POST" }
+            );
+
+            if (!response.ok) {
+                setError("Could not generate exam timetable now");
+                return;
+            }
+
         } catch (error) {
-            console.log("Error: ", error);
-            setError("Could not generate exam time Table now")
+            console.log("Error:", error);
+            setError("Could not generate exam timetable now");
         }
-    }
+    };
     return (
         <div className={styles["subjectContainer"]}>
             <StudentNav username={username} />
@@ -219,7 +223,7 @@ export default function Subject() {
                         <tfoot>
                             <tr>
                                 <td colSpan="5" style={{ textAlign: "right" }}>
-                                    <button onClick={() => genTable()} className={styles["genTable"]}>
+                                    <button onClick={onGen} className={styles["genTable"]}>
                                         Generate Table
                                     </button>
                                 </td>
