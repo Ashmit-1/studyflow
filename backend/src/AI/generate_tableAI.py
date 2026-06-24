@@ -6,7 +6,9 @@ from sqlalchemy.orm import Session
 from src.models import Subject,AITable
 from src.deps import get_db,get_current_user
 from fastapi import APIRouter
-from datetime import date
+from datetime import date,timedelta
+from typing import Any
+
 
 load_dotenv()
 
@@ -79,8 +81,13 @@ def generate_table(
                     Rules:
                     - Study date must be before exam_date.
                     - Study date must not be today if exam is today.
-                    - subject_data.exam_date is Deadend for the Exam table.
+                    - Never schedule study on exam_date. Study date must be strictly before exam_date.
                     - Do not create sessions on or after exam_date.
+                    - Each subject has its own exam_date.
+                    - Use that subject's exam_date only for that subject.
+                    - Do not use the last exam date for all subjects.
+                    - For Python, study dates must be before Python's exam_date.
+                    - For JAVA, study dates must be before JAVA's exam_date.
 
                     Return ONLY JSON:
                     {{
@@ -100,9 +107,17 @@ def generate_table(
         max_tokens=1000
     )
 
-    ai_text = response.choices[0].message.content
+    ai_text = response.choices[0].message.content or ""
 
-    time_table_data= clean_ai_json(ai_text)
+    try:
+        time_table_data = clean_ai_json(ai_text)
+        time_table_data = validate_timetable(time_table_data, subjects, today)
+    except Exception as e:
+        print("AI timetable failed:", e)
+        print("RAW AI:", ai_text)
+
+    time_table_data = generate_fallback_timetable(subjects, today)
+
     clean_text = json.dumps(time_table_data)
 
     existing_table = db.query(AITable).filter(AITable.user_id == user_id).first()
@@ -171,3 +186,90 @@ def clean_ai_json(ai_text: str):
         return data
     except json.JSONDecodeError:
         raise HTTPException(status_code=500, detail="AI returned invalid JSON")
+    
+def generate_fallback_timetable(subjects, today: date):
+    rows = []
+
+    difficulty_days = {
+        "easy": 2,
+        "medium": 4,
+        "hard": 6,
+    }
+
+    difficulty_hours = {
+        "easy": 1,
+        "medium": 2,
+        "hard": 3,
+    }
+
+    for subject in subjects:
+        difficulty = str(subject.difficulty).lower()
+        days_needed = difficulty_days.get(difficulty, 3)
+        hours = difficulty_hours.get(difficulty, 2)
+
+        available_dates = []
+        current = today
+
+        while current < subject.exam_date:
+            available_dates.append(current)
+            current += timedelta(days=1)
+
+        selected_dates = available_dates[-days_needed:]
+
+        for index, study_date in enumerate(selected_dates, start=1):
+            rows.append({
+                "date": study_date.isoformat(),
+                "subject": subject.subject_name,
+                "task": f"Study {subject.subject_name} part {index}",
+                "hours": hours,
+            })
+
+    rows.sort(key=lambda x: (x["date"], x["subject"]))
+
+    return {"timetable": rows}
+
+def validate_timetable(data: dict[str, Any], subjects, today: date):
+    deadlines = {
+        subject.subject_name: subject.exam_date
+        for subject in subjects
+    }
+
+    timetable = data.get("timetable")
+
+    if not isinstance(timetable, list):
+        raise ValueError("AI JSON must contain timetable list")
+
+    clean_rows = []
+
+    for row in timetable:
+        subject = row.get("subject")
+
+        if subject not in deadlines:
+            raise ValueError(f"Unknown subject: {subject}")
+
+        study_date = date.fromisoformat(str(row.get("date")))
+        exam_date = deadlines[subject]
+
+        if study_date < today:
+            raise ValueError("Study date is in the past")
+
+        if study_date >= exam_date:
+            raise ValueError(f"{subject} scheduled on/after exam date")
+
+        task = str(row.get("task", "")).strip()
+        if not task:
+            raise ValueError("Missing task")
+
+        hours = float(row.get("hours"))
+        if hours <= 0:
+            raise ValueError("Invalid hours")
+
+        clean_rows.append({
+            "date": study_date.isoformat(),
+            "subject": subject,
+            "task": task,
+            "hours": int(hours) if hours.is_integer() else hours,
+        })
+
+    clean_rows.sort(key=lambda x: (x["date"], x["subject"]))
+    return {"timetable": clean_rows}
