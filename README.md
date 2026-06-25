@@ -24,7 +24,8 @@ The app supports user registration, login, protected dashboard access, and subje
 
 ```
 studyflow/
-├── backend/                    # FastAPI backend server
+├── .github/                   # GitHub CI/CD and repositary configuration
+├── backend/                   # FastAPI backend server
 │   ├── app.py                 # Main FastAPI application entry
 │   ├── requirements.txt       # Python dependencies
 │   ├── Dockerfile             # Backend Docker image definition
