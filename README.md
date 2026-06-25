@@ -31,6 +31,8 @@ studyflow/
 │   ├── .env                   # Environment variables
 │   ├── .env.example           # Environment example
 │   └── src/
+│       ├── AI/
+│       │   └── generate_tableAI.py
 │       ├── auth/
 │       │   ├── auth_utils.py
 │       │   ├── otp.py
@@ -66,6 +68,7 @@ studyflow/
         │   └── dashboard/
         │       ├── EditSubject.jsx
         │       ├── Student.jsx
+        │       ├── TimeTable.jsx
         │       └── Subject.jsx
         ├── styles/
         │   ├── components/
@@ -78,6 +81,7 @@ studyflow/
         │       ├── login.module.css
         │       ├── register.module.css
         │       ├── studentDash.module.css
+        │       ├── timetable.module.css
         │       └── subject.module.css
         └── assets/
 ```
@@ -88,8 +92,8 @@ studyflow/
 
 ```
 Browser (React) -> FastAPI backend -> MySQL
-                       |
-                       -> Redis for OTP
+                       │
+                       └── Redis for OTP
 ```
 
 ---
@@ -329,6 +333,23 @@ docker compose exec backend python -m src.init_db
 - `PUT /student/{user_id}/subjects/{subject_id}`
 - `DELETE /student/{user_id}/subjects/{subject_id}`
 
+
+### AI Table Creation Endpoints
+- `POST /student/{user_id}/subjects/generate-table`
+- `GET /student/{user_id}/time-table`
+- Response JSON:
+  ```json
+  {
+    "timetable": [
+      {
+        "date": "2026-06-25",
+        "subject": "Python",
+        "task": "Study loops",
+        "hours": 2
+      }
+    ]
+  }
+  ```
 ---
 
 ## 🛠️ Technology Stack
@@ -360,6 +381,7 @@ docker compose exec backend python -m src.init_db
 - React landing page, auth pages, and dashboard UI
 - Toast notifications and sidebar navigation
 - Tailwind CSS styling
+- AI-genarated study Timetable 
 
 ## 🔄 In Progress
 
@@ -419,4 +441,4 @@ MIT License
 
 ---
 
-**Last Updated:** 22 June 2026
+**Last Updated:** 25 June 2026
