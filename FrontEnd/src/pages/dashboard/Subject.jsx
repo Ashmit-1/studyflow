@@ -6,7 +6,6 @@ import styles from "../../styles/pages/subject.module.css";
 import { useNavigate } from "react-router-dom";
 import { fetchWithAuth } from "../../api";
 import DatePicker from "react-datepicker";
-import { FaCalendarAlt } from "react-icons/fa"
 import "react-datepicker/dist/react-datepicker.css";
 
 

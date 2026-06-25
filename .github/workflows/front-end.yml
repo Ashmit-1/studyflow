@@ -1,0 +1,35 @@
+name: frontend 
+
+on:
+  push:
+    branches:
+      - main 
+      - dev
+
+jobs:
+  build:
+    name: frontend
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: FrontEnd
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          npm install 
+
+      - name: ESlint run 
+        run: |
+          npm run lint
+
+
+      - name: build frontend
+        run: |
+          npm run build
+
+      - name: audit 
+        run: |
+          npm audit dependencies
