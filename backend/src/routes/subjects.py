@@ -9,6 +9,8 @@ router = APIRouter()
 
 @router.post("/student/{user_id}/subjects")
 def add_subjects(user_id: int, subject: SubjectCreate, db: Session = Depends(get_db),current_user=Depends(get_current_user)):
+    if current_user.id != user_id:
+        raise HTTPException(status_code=403, detail="Not authorized to add a subject for this student")
     if subject.exam_date < date.today():
         raise HTTPException(status_code=422, detail="Exam date is Invalid.")
     new_subject = Subject(
@@ -85,8 +87,12 @@ def get_subject(
 def delete_subject(
     user_id: int,
     subject_id: int,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_user)
 ):
+    
+    if current_user.id != user_id:
+        raise HTTPException(status_code=403,detail="Not authorized to Delete this subject")
     existing_subject = db.query(Subject).filter(
         Subject.id == subject_id,
         Subject.user_id == user_id

@@ -92,6 +92,24 @@ export default function Subject() {
             setError("Could not Delete the subject, pls Try Again")
         }
     };
+
+    const onGen = async () => {
+        try {
+            const response = await fetchWithAuth(
+                `http://127.0.0.1:8000/student/${userId}/subjects/generate-table`,
+                { method: "POST" }
+            );
+
+            if (!response.ok) {
+                setError("Could not generate exam timetable now");
+                return;
+            }
+
+        } catch (error) {
+            console.log("Error:", error);
+            setError("Could not generate exam timetable now");
+        }
+    };
     return (
         <div className={styles["subjectContainer"]}>
             <StudentNav username={username} />
@@ -202,6 +220,15 @@ export default function Subject() {
                                 </tr>
                             ))}
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colSpan="5" style={{ textAlign: "right" }}>
+                                    <button onClick={onGen} className={styles["genTable"]}>
+                                        Generate Table
+                                    </button>
+                                </td>
+                            </tr>
+                        </tfoot>
                     </table>
                 )}
             </div>

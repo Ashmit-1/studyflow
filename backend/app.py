@@ -11,9 +11,10 @@ from src.routes.studentlog import route as student_login
 from src.auth.otp import generate_otp, save_otp, verify_otp
 from src.email_service import send_otp_email
 from src.routes.subjects import router as subjects_router
-
-
+from src.AI.generate_tableAI import router as table_gen
 app = FastAPI()
+
+app.include_router(table_gen)
 app.include_router(login_router)
 app.include_router(student_login, prefix="")
 app.include_router(subjects_router)
