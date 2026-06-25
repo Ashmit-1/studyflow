@@ -77,6 +77,7 @@ function Register() {
                 );
             }
         } catch (err) {
+            console.log(err)
             setError("Network error detected. Please wait a moment and try again.");
         } finally {
             setIsVerifying(false);
