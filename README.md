@@ -253,7 +253,7 @@ docker compose exec backend python -m src.init_db
 
 - Frontend: http://localhost:5173
 - Backend API: http://localhost:8000
-- MySQL: localhost:3307
+- PostgreSQL: localhost:5433
 - Redis: localhost:6379
 
 ---
