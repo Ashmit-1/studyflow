@@ -89,12 +89,55 @@ studyflow/
 
 ---
 
-## 🧱 Architecture
+## 🧱 Architecture diagram
 
-```
-Browser (React) -> FastAPI backend -> PostgreSQL
-                       │
-                       └── Redis for OTP
+```mermaid
+flowchart TD
+    U["User / Student"] --> B["Browser"]
+
+    B --> FE["React + Vite Frontend"]
+    FE --> R["React Router Pages"]
+
+    R --> H["Home"]
+    R --> REG["Register"]
+    R --> L["Login"]
+    R --> D["Student Dashboard"]
+    R --> S["Subject CRUD Page"]
+    R --> T["AI Timetable Page"]
+
+    FE --> API["FastAPI Backend"]
+
+    API --> AUTH["Auth Routes"]
+    API --> OTP["OTP Routes"]
+    API --> SUB["Subject Routes"]
+    API --> DASH["Student Dashboard Route"]
+    API --> AI["AI Timetable Route"]
+
+    AUTH --> JWT["JWT Access + Refresh Tokens"]
+    OTP --> REDIS["Redis OTP Store"]
+    OTP --> EMAIL["Email Service"]
+
+    SUB --> DB["PostgreSQL Database"]
+    DASH --> DB
+    AUTH --> DB
+    AI --> DB
+
+    AI --> NVIDIA["NVIDIA OpenAI-Compatible API"]
+    NVIDIA --> AI
+
+    DB --> USERS["users"]
+    DB --> SUBJECTS["subjects"]
+    DB --> AITABLE["ai_table"]
+    DB --> TOPICS["syllabus_topics"]
+    DB --> PLANS["study_plans"]
+    DB --> PROGRESS["progress"]
+
+    DOCKER["Docker Compose"] --> FE
+    DOCKER --> API
+    DOCKER --> DB
+    DOCKER --> REDIS
+
+    CI["GitHub Actions + Dependabot"] --> REPO["GitHub Repository"]
 ```
 
 ---
