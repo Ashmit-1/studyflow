@@ -48,7 +48,7 @@ studyflow/
 │           ├── login.py       # login endpoint
 │           ├── studentlog.py  # student dashboard endpoint
 │           └── subjects.py    # subject CRUD endpoints
-├── docker-compose.yml         # Docker Compose for backend, frontend, MySQL and Redis
+├── docker-compose.yml         # Docker Compose for backend, frontend, PostgreSQL and Redis
 └── FrontEnd/                   # React frontend application
     ├── Dockerfile             # Frontend Docker image definition
     ├── package.json           # npm dependencies and scripts
@@ -360,7 +360,7 @@ docker compose exec backend python -m src.init_db
 - SQLAlchemy
 - Pydantic
 - bcrypt
-- PyMySQL
+- PostgreSQL(via pyscorg)
 - redis
 - uvicorn
 
