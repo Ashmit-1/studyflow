@@ -12,6 +12,7 @@ from src.models import User
 from src.routes.login import router as login_router
 from src.routes.studentlog import route as student_login
 from src.routes.subjects import router as subjects_router
+from src.routes.topics import router as topics_router
 from src.schemas import OTPRequest, OTPVerify, UserCreate, UserOut
 
 app = FastAPI()
@@ -20,6 +21,7 @@ app.include_router(table_gen, tags=["table generation"])
 app.include_router(login_router, tags=["login"])
 app.include_router(student_login, prefix="", tags=["studen login"])
 app.include_router(subjects_router, tags=["subjects"])
+app.include_router(topics_router, tags=["topics"])
 
 app.add_middleware(
     CORSMiddleware,
